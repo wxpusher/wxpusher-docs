@@ -58,7 +58,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 ## 注册并且创建应用
   
-[http://wxpusher.zjiecode.com](http://wxpusher.zjiecode.com) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
+[http://wxpusher.zjiecode.com/admin/](http://wxpusher.zjiecode.com/admin/) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
 
 创建一个应用，如下图：
 
