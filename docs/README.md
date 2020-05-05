@@ -99,11 +99,12 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   {
     "appToken":"AT_xxx",
     "content":"Wxpusher祝你中秋节快乐!",
+    "summary":"消息摘要",//消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度100，可以不传，不传默认截取content前面的内容。
     "contentType":1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
-    "topicIds":[ //发送目标的topicId，是一个数组！！！
+    "topicIds":[ //发送目标的topicId，是一个数组！！！，也就是群发，使用uids单发的时候， 可以不传。
         123
     ],
-    "uids":[//发送目标的UID，是一个数组！！！
+    "uids":[//发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。
         "UID_xxxx"
     ],
     "url":"http://wxpusher.zjiecode.com" //原文链接，可选参数
@@ -194,11 +195,11 @@ ContentType：application/json
 回调的使用POST方法，数据格式如下：
 ```json
 {
-    "action":"app_subscribe",//动作，app_subscribe 表示用户关注应用回调
+    "action":"app_subscribe",//动作，app_subscribe 表示用户关注应用回调，后期可能会添加其他动作，请做好兼容。
     "data":{
         "appKey":"AK_xxxxxx", //关注应用的appKey
         "appName":"应用名字",
-        "source":"scan", //用户关注渠道，scan表示扫码关注
+        "source":"scan", //用户关注渠道，scan表示扫码关注，后期可能添加其他渠道，
         "userName":"wxpusher",
         "userHeadImg":"http://xxxxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
         "time":1569416451573, //消息发生时间
