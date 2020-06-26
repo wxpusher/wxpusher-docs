@@ -8,6 +8,8 @@
  
 你可以访问演示程序，体验功能：[http://wxpusher.zjiecode.com/demo/](http://wxpusher.zjiecode.com/demo/)
 
+演示程序源代码：[https://github.com/wxpusher/wxpusher-sdk-java/](https://github.com/wxpusher/wxpusher-sdk-java/)
+
 **请一定不要调用demo程序，直接给用户发送消息！！！**
 
 # 效果预览
@@ -182,11 +184,11 @@ ContentType：application/json
 ```
 
 
-# Java SDK
+# SDK调用
 
-为了方便快速接入，开发了Java的接入SDK ，[https://github.com/zjiecode/wxpusher-client](https://github.com/zjiecode/wxpusher-client).
+为了方便快速接入，各位热心的开发者贡献了很多接入SDK，[https://github.com/wxpusher/wxpusher-client](https://github.com/wxpusher/wxpusher-client).
 
-目前只封装了Java的版本，其他语言请使用Http，如果你有进行封装，也欢迎PR。
+**SDK是开发者们贡献，可能不包括最新的API或者功能，功能以本文的的HTTP接口为准，也欢迎你提PR给我们。**
 
 # 回调说明 :id=callback
 给用户发送消息，需要知道用户的UID，有2种途径知道用户的UID：
@@ -208,6 +210,14 @@ ContentType：application/json
     }
 }
 ```
+
+# 限制说明
+WxPusher是免费的推送服务，为了能更好的服务大家，这里说明一下系统相关数据限制
+- 消息发送频率没有做限制，但是请控制在合理范围内。不排除后期做频率限制的可能，但是这样做也是为了更好的体验，只要在合理范围内，不会受到影响；
+- 消息发送，必须合法合规，发送违规违法欺诈等等非正常消息，可能被封号；
+- WxPusher推送的是实时消息，时效性比较强，过期以后消息也就没有价值了，目前WxPusher会为你保留7天的数据 ，7天以后不再提供可靠性保证，会不定时清理历史消息；
+- 单条消息的数据长度(字符数)限制是：content<40000;summary<100;url<400;
+- 单条消息最大发送UID的数量<2000，单条消息最大发送topicIds的数量<5;
 
 
 # 迁移升级
