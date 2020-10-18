@@ -91,7 +91,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 - POST接口
   POST接口是功能完整的接口，推荐使用。
 
-  ContentType:application/json
+  Content-Type:application/json
   
   地址：http://wxpusher.zjiecode.com/api/send/message
 
@@ -191,6 +191,9 @@ ContentType：application/json
 **SDK是开发者们贡献，可能不包括最新的API或者功能，功能以本文的的HTTP接口为准，也欢迎你提PR给我们。**
 
 # 回调说明 :id=callback
+当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
+
+## 用户关注回调
 给用户发送消息，需要知道用户的UID，有2种途径知道用户的UID：
 - 用户关注公众号以后，在菜单里面，找到「获取UID」就可以看到自己的UID了。
 - 如果你在创建应用的时候，写了回调地址，当用户扫描你的应用二维码关注你创建的应用时，WxPusher会对你设置的地址发起HTTP调用，把用户的UID推送给你。
@@ -199,9 +202,10 @@ ContentType：application/json
 {
     "action":"app_subscribe",//动作，app_subscribe 表示用户关注应用回调，后期可能会添加其他动作，请做好兼容。
     "data":{
-        "appKey":"AK_xxxxxx", //关注应用的appKey
+        "appId":123,//创建的应用ID
+        "appKey":"AK_xxxxxx", //关注应用的appKey，请不要再使用，将来可能会被删除
         "appName":"应用名字",
-        "source":"scan", //用户关注渠道，scan表示扫码关注，后期可能添加其他渠道，
+        "source":"scan", //用户关注渠道，scan表示扫码关注，link表示链接关注，command表示通过消息关注应用，后期可能还会添加其他渠道。
         "userName":"wxpusher",
         "userHeadImg":"http://xxxxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
         "time":1569416451573, //消息发生时间
@@ -210,6 +214,34 @@ ContentType：application/json
     }
 }
 ```
+
+## 上行消息（用户发送消息回调）
+目前WxPusher已经支持指令类的上行消息，用户发送指令，WxPusher会将指令消息回调给开发者。
+
+指令的格式为：**#{appID} 内容**  ，比如给[演示程序](https://wxpusher.zjiecode.com/demo/)发送消息，可以发送：#97 测试 ，注意中间有一个空格。
+
+如果只发送：#{appID} ，比如：#97 ，后面没有内容，表示关注appID为97的应用，**开发者不会收到回调消息**。
+
+appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjiecode.com/admin/main/app/appInfo)-应用id 查看。
+
+回调使用POST方法，数据格式如下：
+```json
+{
+    "action":"send_up_cmd",//动作，send_up_cmd 表示上行消息回调，后期可能会添加其他动作，请做好兼容。
+    "data":{
+        "uid":"UID_xxx",//用户uid
+        "appId":97, //应用id
+        "appKey":null,//废弃字段
+        "appName":"WxPusher演示",//应用名称
+        "userName":"小明",//用户昵称
+        "userHeadImg":"http://thirdwx.qlogo.cn/mmopen/xxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+        "time":1603002697386,//发生时间
+        "content":"内容" //用户发送的内容
+    }
+}
+```
+
+
 
 # 限制说明
 WxPusher是免费的推送服务，为了能更好的服务大家，这里说明一下系统相关数据限制
