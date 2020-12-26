@@ -81,7 +81,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 ![创建应用](imgs/subscribe.png  ':size=350')
 
 ## 获取UID
-> 老版本的ID，不能在新版本上面使用，需要重新获取。
+关注公众号：wxpusher，然后点击「我的」-「我的UID」查询到UID。
   
 ## 发送消息
 拿到UID以后，配合应用的appToken，然后调用发送接口发送消息。
@@ -150,22 +150,23 @@ ContentType：application/json
  
 ```
 
-## 查询App的关注用户
-你可以通过本接口，分页查询到所有关注你App的微信用户。
+## ~~查询App的关注用户V1（已弃用）~~
+**本接口已经被弃用，请使用下面 查询App的关注用户V2接口**
+~~你可以通过本接口，分页查询到所有关注你App的微信用户。~~
 
-请求方式：GET
+~~请求方式：GET~~
 
-说明：获取到所有关注应用的微信用户用户信息
+~~说明：获取到所有关注应用的微信用户用户信息~~
 
-请求地址：http://wxpusher.zjiecode.com/api/fun/wxuser
+~~请求地址：http://wxpusher.zjiecode.com/api/fun/wxuser~~
 
-请求参数：
+~~请求参数：~~
  - appToken 应用密钥标志
  - page  请求数据的页码
  - pageSize 分页大小
  - uid 用户的uid，可选，如果不传就是查询所有用户，传uid就是查某个用户的信息。
 
-返回数据：
+~~返回数据：~~
 ```json
 {
     "page":1, //当前数据页码
@@ -180,6 +181,94 @@ ContentType：application/json
         }
     ],
     "total":3//所有的用户数量
+}
+```
+## 查询App的关注用户V2
+你可以通过本接口，分页查询到所有关注应用和关注主题的用户。
+
+请求方式：GET
+
+说明：获取到所有关注应用/主题的微信用户用户信息。**需要注意，一个微信用户，如果同时关注应用，主题，甚至关注多个主题，会返回多条记录。**
+
+请求地址：http://wxpusher.zjiecode.com/api/fun/wxuser/v2
+
+请求参数：
+ - appToken 应用密钥标志
+ - page  请求数据的页码
+ - pageSize 分页大小，不能超过100
+ - uid 用户的uid，可选，如果不传就是查询所有用户，传uid就是查某个用户的信息。
+ - isBlock 查询拉黑用户，可选，不传查询所有用户，true查询拉黑用户，false查询没有拉黑的用户
+ - type 关注的类型，可选，不传查询所有用户，0是应用，1是主题。
+返回数据：
+```json
+{
+    "code": 1000,
+    "msg": "处理成功",
+    "data": {
+        "total": 40,//总数
+        "page": 1,//当前页码
+        "pageSize": 20,//页码大小，
+        "records": [
+            {
+                "uid": "UID_xxx",//用户uid
+                "headImg": "http://thirdwx.qlogo.cn/mmopen/xxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+                "createTime": 1603540859285,//创建时间
+                "nickName": "Li",//昵称
+                "reject": false,//是否拉黑
+                "id": 47361,//id，如果调用删除或者拉黑接口，需要这个id
+                "type": 0,//关注类型，0：关注应用，1：关注topic
+                "target": "WxPusher官方"//关注的应用或者主题名字
+            }
+        ]
+    },
+    "success": true
+}
+```
+
+## 删除用户
+你可以通过本接口，删除用户对应用，主题的关注。
+
+请求方式：*DELETE*
+
+说明：你可以删除用户对应用， 主题的关注，删除以后，用户可以重新关注，如不需要让用户再次关注，可以调用拉黑接口，对用户拉黑。
+
+请求地址：http://wxpusher.zjiecode.com/api/fun/remove
+
+请求参数：
+ - appToken 应用密钥标志
+ - id  用户id，通过用户查询接口可以获取
+
+返回数据：
+```json
+{
+    "code": 1000,
+    "msg": "处理成功",
+    "data": "删除成功",
+    "success": true
+}
+```
+
+## 拉黑用户
+你可以通过本接口，可以拉黑用户
+
+请求方式：*PUT*
+
+说明：拉黑以后不能再发送消息，用户也不能再次关注，除非你取消对他的拉黑。调用拉黑接口，不用再调用删除接口。
+
+请求地址：http://wxpusher.zjiecode.com/api/fun/reject
+
+请求参数：
+ - appToken 应用密钥标志
+ - id  用户id，通过用户查询接口可以获取
+ - reject 是否拉黑，true表示拉黑，false表示取消拉黑
+
+返回数据：
+```json
+{
+    "code": 1000,
+    "msg": "处理成功",
+    "data": "删除成功",
+    "success": true
 }
 ```
 
