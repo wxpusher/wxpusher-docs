@@ -13,9 +13,11 @@
 **请一定不要调用demo程序，直接给用户发送消息！！！**
 
 # 效果预览
-类型|获取用户ID|普通发送|带链接的消息|长文本消息|模版消息
+**微信接口调整，直接发送文本消息的方式已经下线**，我们正在开发新的推送方式，敬请期待。
+
+类型|获取用户ID|模版消息|~~普通发送~~|~~带链接的消息~~|~~长文本消息~~
 :--:|:--:|:--:|:---:|:---:|:---:
-预览|![创建应用](imgs/getid.jpg  ':size=250')|![创建应用](imgs/type_1.jpg  ':size=250')|![创建应用](imgs/type_2.jpg  ':size=250')|![创建应用](imgs/type_3.jpg  ':size=250')|![创建应用](imgs/type_4.jpg  ':size=250')
+预览|![创建应用](imgs/getid.jpg  ':size=250')|![创建应用](imgs/type_4.jpg  ':size=250')|![创建应用](imgs/type_1.jpg  ':size=250')|![创建应用](imgs/type_2.jpg  ':size=250')|![创建应用](imgs/type_3.jpg  ':size=250')
 
 # 名词解释
 - 应用
@@ -211,9 +213,9 @@ ContentType：application/json
         "records": [
             {
                 "uid": "UID_xxx",//用户uid
-                "headImg": "http://thirdwx.qlogo.cn/mmopen/xxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+                "headImg": "",//新用户微信不再返回 ，强制返回空
                 "createTime": 1603540859285,//创建时间
-                "nickName": "Li",//昵称
+                "nickName": "",//新用户微信不再返回 ，强制返回空
                 "reject": false,//是否拉黑
                 "id": 47361,//id，如果调用删除或者拉黑接口，需要这个id
                 "type": 0,//关注类型，0：关注应用，1：关注topic
@@ -234,7 +236,7 @@ ContentType：application/json
 
 请求地址：http://wxpusher.zjiecode.com/api/fun/remove
 
-请求参数：
+请求参数(Query)：
  - appToken 应用密钥标志
  - id  用户id，通过用户查询接口可以获取
 
@@ -257,7 +259,7 @@ ContentType：application/json
 
 请求地址：http://wxpusher.zjiecode.com/api/fun/reject
 
-请求参数：
+请求参数(Query)：
  - appToken 应用密钥标志
  - id  用户id，通过用户查询接口可以获取
  - reject 是否拉黑，true表示拉黑，false表示取消拉黑
@@ -295,8 +297,8 @@ ContentType：application/json
         "appKey":"AK_xxxxxx", //关注应用的appKey，请不要再使用，将来可能会被删除
         "appName":"应用名字",
         "source":"scan", //用户关注渠道，scan表示扫码关注，link表示链接关注，command表示通过消息关注应用，后期可能还会添加其他渠道。
-        "userName":"wxpusher",
-        "userHeadImg":"http://xxxxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+        "userName":"", //新用户微信不再返回 ，强制返回空
+        "userHeadImg":"",//新用户微信不再返回 ，强制返回空
         "time":1569416451573, //消息发生时间
         "uid":"UID_xxxxxx", //用户uid
         "extra":"xxx"    //用户扫描带参数的二维码，二维码携带的参数。扫描默认二维码为空
@@ -322,8 +324,8 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
         "appId":97, //应用id
         "appKey":null,//废弃字段
         "appName":"WxPusher演示",//应用名称
-        "userName":"小明",//用户昵称
-        "userHeadImg":"http://thirdwx.qlogo.cn/mmopen/xxx/132",//最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+        "userName":"",//新用户微信不再返回 ，强制返回空
+        "userHeadImg":"",//新用户微信不再返回 ，强制返回空
         "time":1603002697386,//发生时间
         "content":"内容" //用户发送的内容
     }
