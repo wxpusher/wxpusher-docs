@@ -130,7 +130,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 请求地址：http://wxpusher.zjiecode.com/api/send/query/{messageId}
 
-## 创建参数二维码
+## 创建参数二维码 :id=create-qrcode
 有一种场景，就是需要知道当前是谁扫描的二维码，比如：论坛帖子有新消息需要推送给用户，这个如果用户扫码关注，你需要知道是谁扫的二维码，把论坛用户ID和Wxpusher用户的UID绑定，当论坛用户ID有新消息时，推送给Wxpusher用户。这种场景就需要带参数的二维码。
 
 请求方式：POST
@@ -150,6 +150,25 @@ ContentType：application/json
     "validTime":1800    //可选，二维码的有效期，默认30分钟，最长30天，单位是秒
 }
  
+```
+
+## 查询扫码用户UID :id=create-qrcode
+用户扫描参数二维码后，设置了回调地址，我们会通过回调地址把用户的UID推送给你的服务，具体见<a href="#/?id=callback">回调说明</a>，推荐使用这种回调的方式。
+
+但是部分用户场景简单，或者没有后端服务，比如客户端软件，使用很不方便，因此我们增加了这个查询接口，通过上面的<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个二维码，你会拿到一个二维码的code，用此code配合这个接口，可以查询到最后一次扫描参数二维码用户的UID。
+
+<font color="red">轮训时间间隔不能小于10秒！！禁止死循环轮训，用户退出后，必须关闭轮训，否则封号。</font>
+
+请求方式：GET
+
+请求地址：https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid
+
+请求参数(Query):
+ - code 创建参数二维码接口返回的code参数。
+
+一个例子
+```
+https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ```
 
 ## ~~查询App的关注用户V1（已弃用）~~
@@ -283,6 +302,7 @@ ContentType：application/json
 
 # 回调说明 :id=callback
 当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
+如果你没有后台服务，也可以轮训，参考<a href="#/?id=create-qrcode">查询扫码用户UID</a>接口。
 
 ## 用户关注回调
 给用户发送消息，需要知道用户的UID，有2种途径知道用户的UID：
