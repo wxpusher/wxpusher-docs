@@ -182,7 +182,7 @@ ContentType：application/json
 https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ```
 
-## ~~查询App的关注用户V1（已弃用）~~
+## ~~查询用户列表V1（已弃用）~~
 **本接口已经被弃用，请使用下面 查询App的关注用户V2接口**
 ~~你可以通过本接口，分页查询到所有关注你App的微信用户。~~
 
@@ -215,7 +215,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
     "total":3//所有的用户数量
 }
 ```
-## 查询App的关注用户V2
+## 查询用户列表V2 :id=user-list
 你可以通过本接口，分页查询到所有关注应用和关注主题的用户。
 
 请求方式：GET
@@ -249,7 +249,8 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
                 "reject": false,//是否拉黑
                 "id": 47361,//id，如果调用删除或者拉黑接口，需要这个id
                 "type": 0,//关注类型，0：关注应用，1：关注topic
-                "target": "WxPusher官方"//关注的应用或者主题名字
+                "target": "WxPusher官方",//关注的应用或者主题名字
+                "payEndTime":0 // 0表示用户不是付费用户，大于0表示用户付费订阅到期时间，毫秒级时间戳
             }
         ]
     },
@@ -310,6 +311,35 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 为了方便快速接入，各位热心的开发者贡献了很多接入SDK，[https://github.com/wxpusher/wxpusher-client](https://github.com/wxpusher/wxpusher-client).
 
 **SDK是开发者们贡献，可能不包括最新的API或者功能，功能以本文的的HTTP接口为准，也欢迎你提PR给我们。**
+
+# 消息产品收费
+
+<p style="font-size:1.1em;font-weight:600">请注意，此收费是指：消息开发者，通过WxPusher向消息接收者收费，<font color="red">而不是指WxPusher向开发者或者用户收费</font>。</p>
+
+![收费流程](imgs/pay_flow.png  )
+
+作为开发者，<font color="red">你负责提供有价值的消息，我们负责帮你赚钱变现</font>。
+
+接入的流程如下：
+
+## 创建消息产品
+消息产品是对单发的应用消息，群发的主题消息的包装，可以把多个消息，包装到一个消息产品下进行销售。
+
+![创建产品](imgs/create_product.jpg  )
+
+请注意，目前产品创建后，不支持修改，请填写清楚后再提交。
+
+提交后，请联系客服微信「lanyunt」进行审核，付费价格策略等商谈，完成后可以上架到消息市场，用户可以直接在消息市场支付购买。
+
+## 消息市场
+说明|消息市场|消息产品列表|消息产品介绍
+:--:|:--:|:--:|:--:
+示例|![创建应用](imgs/market.jpg  ':size=250')|![创建应用](imgs/product-list.jpg  ':size=250')|![创建应用](imgs/product-detail.jpg  ':size=250')
+
+## 付费信息查询
+
+通过<a href="#/?id=user-list">查询用户列表V2</a>可以查询用户信息，其中payEndTime就是用户的订阅到期时间。
+
 
 # 回调说明 :id=callback
 当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
