@@ -247,6 +247,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
         "records": [
             {
                 "uid": "UID_xxx",//用户uid
+                "appOrTopicId":111,//用户关注的应用或者主题id，根据type来区分
                 "headImg": "",//新用户微信不再返回 ，强制返回空
                 "createTime": 1603540859285,//创建时间
                 "nickName": "",//新用户微信不再返回 ，强制返回空
