@@ -100,7 +100,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 所有接口均已经支持https。
 
-## 发送消息
+## 发送消息 :id=send-msg
 - POST接口
   POST接口是功能完整的接口，推荐使用。
 
@@ -340,6 +340,15 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ## 付费信息查询
 
 通过<a href="#/?id=user-list">查询用户列表V2</a>可以查询用户信息，其中payEndTime就是用户的订阅到期时间。
+
+## 付费消息标记
+
+包装为产品的应用或者主题，在发送消息的时候，可以区分本条消息是否只有付费订阅期内的用户才收得到。
+根据verifyPay字段来做区别
+ - verifyPay=true，表示本条消息，只发送给付费订阅期内的用户
+ - verifyPay=false，表示本条消息 ，不验证付费状态，关注了应用或者主题就可以收到。
+
+具体可以查看<a href="#/?id=send-msg">发送消息的接口</a>说明，没有包装成产品的应用或者主题，verifyPay字段无效，可以不用传递。
 
 
 # 回调说明 :id=callback
