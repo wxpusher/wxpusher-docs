@@ -91,8 +91,11 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 ![创建应用](imgs/subscribe.png  ':size=350')
 
 ## 获取UID
-关注公众号：wxpusher，然后点击「我的」-「我的UID」查询到UID。
-  
+目前有3种方式获取UID：
+1. 关注公众号：wxpusher，然后点击「我的」-「我的UID」查询到UID；
+1. 通过<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个定制的二维码，用户扫描此二维码后，会通过<a href="#/?id=subscribe-callback">用户关注回调</a>把UID推送给你；
+1. 通过<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个定制的二维码，然后用<a href="#/?id=query-uid">查询扫码用户UID</a>接口，查询扫描此二维码的用户UID；
+
 ## 发送消息
 拿到UID以后，配合应用的appToken，然后调用发送接口发送消息。
 
@@ -164,7 +167,7 @@ ContentType：application/json
  
 ```
 
-## 查询扫码用户UID :id=create-qrcode
+## 查询扫码用户UID :id=query-uid
 用户扫描参数二维码后，设置了回调地址，我们会通过回调地址把用户的UID推送给你的服务，具体见<a href="#/?id=callback">回调说明</a>，推荐使用这种回调的方式。
 
 但是部分用户场景简单，或者没有后端服务，比如客户端软件，使用很不方便，因此我们增加了这个查询接口，通过上面的<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个二维码，你会拿到一个二维码的code，用此code配合这个接口，可以查询到最后一次扫描参数二维码用户的UID。
@@ -353,9 +356,9 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 # 回调说明 :id=callback
 当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
-如果你没有后台服务，也可以轮训，参考<a href="#/?id=create-qrcode">查询扫码用户UID</a>接口。
+如果你没有后台服务，也可以轮训，参考<a href="#/?id=query-uid">查询扫码用户UID</a>接口。
 
-## 用户关注回调
+## 用户关注回调 :id=subscribe-callback
 给用户发送消息，需要知道用户的UID，有2种途径知道用户的UID：
 - 用户关注公众号以后，在菜单里面，找到「获取UID」就可以看到自己的UID了。
 - 如果你在创建应用的时候，写了回调地址，当用户扫描你的应用二维码关注你创建的应用时，WxPusher会对你设置的地址发起HTTP调用，把用户的UID推送给你。
