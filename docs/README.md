@@ -122,7 +122,8 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "uids":[//发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。
         "UID_xxxx"
     ],
-    "url":"http://wxpusher.zjiecode.com" //原文链接，可选参数
+    "url":"http://wxpusher.zjiecode.com", //原文链接，可选参数
+    "verifyPay":false //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
 }
   ```
 - GET接口
@@ -130,7 +131,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   ```
   http://wxpusher.zjiecode.com/api/send/message/?appToken=AT_qHT0cTQfLwYOlBV9cJj9zDSyEmspsmyM&content=123&uid=c1BcpqxEbD8irqlGUh9BhOqR2BvH8yWZ&url=http%3a%2f%2fwxpusher.zjiecode.com
   ```
-  请求参数：appToken、uid、topicId、content、url ，其中content和url请进行urlEncode编码。
+  请求参数支持：appToken、uid、topicId、content、url、verifyPay ，其中content和url请进行urlEncode编码。
 
 ## 查询状态
 消息发送给Wxpusher，Wxpusher会缓存下来，后台异步推送给微信再分发给用户，当消息数量庞大的时候，可能会有延迟，你可以根据发送消息返回的messageId，查询消息的发送状态
