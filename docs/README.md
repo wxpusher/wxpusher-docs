@@ -60,6 +60,11 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 # 快速接入
 
+## 整体架构
+
+在接入之前，你可以看一下架构图，有助于你理解单发，群发的区别。
+![系统架构](imgs/structure.png )
+
 ## 注册并且创建应用
   
 [http://wxpusher.zjiecode.com/admin/](http://wxpusher.zjiecode.com/admin/) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
