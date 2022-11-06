@@ -182,7 +182,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 请求地址：https://wxpusher.zjiecode.com/api/send/message?messageContentId=${messageContentId}&appToken=${appToken}
 
 参数说明：
-- messageContentId 是发送接口，返回的消息内容id，调用一次接口生成一个，如果是发送给多个用户，多个用户共享一个messageContentId，通过messageContentId可以删除内容，删除后本次发送的所有用户都无法再查看本条消息
+- messageContentId 发送接口返回的消息内容id，调用一次接口生成一个，如果是发送给多个用户，多个用户共享一个messageContentId，通过messageContentId可以删除内容，删除后本次发送的所有用户都无法再查看本条消息
 - appToken 应用鉴权的AppToken，和发送消息用的appToken是一样的 
 
 
