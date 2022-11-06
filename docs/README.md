@@ -171,7 +171,10 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：查询消息状态，消息缓存有时效性，目前设置缓存时间为7天，7天后查询消息，可能会返回消息不存在
 
-请求地址：https://wxpusher.zjiecode.com/api/send/query/status/{sendRecordId}
+请求地址：https://wxpusher.zjiecode.com/api/send/query/status?sendRecordId={sendRecordId}
+
+参数说明：
+- sendRecordId 发送消息接口返回的发送id，对应给一个uid或者topic的发送id
 
 ## 删除消息
 
