@@ -134,6 +134,27 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "verifyPay":false //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
 }
   ```
+
+返回数据说明：
+```json
+{
+    "code": 1000, //状态码
+    "msg": "处理成功",//提示消息
+    "data": [ //每个uid/topicid的发送状态，和发送的时候，一一对应，是一个数组，可能有多个
+        {
+            "uid": "UID_xxx",//用户uid
+            "topicId": null, //主题ID
+            "messageId": 121,//废弃⚠️，请不要再使用，后续会删除这个字段
+            "messageContentId": 2123,//消息内容id，调用一次接口，生成一个，你可以通过此id调用删除消息接口，删除消息。本次发送的所有用户共享此消息内容。
+            "sendRecordId": 12313,//消息发送id，每个uid用户或者topicId生成一个，可以通过这个id查询对某个用户的发送状态
+            "code": 1000, //1000表示发送成功
+            "status": "创建发送任务成功"
+        }
+    ],
+    "success": true
+}
+```
+
 - GET接口
   GET接口是对POST接口的阉割，主要是为了某些情况下调用方便，只支持对文字（contentType=1）的发送，举例：
   ```
@@ -142,13 +163,24 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   请求参数支持：appToken、uid、topicId、content、url、verifyPay ，其中content和url请进行urlEncode编码。
 
 ## 查询状态
-消息发送给Wxpusher，Wxpusher会缓存下来，后台异步推送给微信再分发给用户，当消息数量庞大的时候，可能会有延迟，你可以根据发送消息返回的messageId，查询消息的发送状态
+消息发送给Wxpusher，Wxpusher会缓存下来，后台异步推送给微信再分发给用户，当消息数量庞大的时候，可能会有延迟，你可以根据发送消息返回的sendRecordId，查询消息给此用户的发送状态
 
 请求方式：GET
 
 说明：查询消息状态，消息缓存有时效性，目前设置缓存时间为7天，7天后查询消息，可能会返回消息不存在
 
-请求地址：http://wxpusher.zjiecode.com/api/send/query/{messageId}
+请求地址：http://wxpusher.zjiecode.com/query/status/{sendRecordId}
+
+## 删除消息
+
+请求方式：DELETE
+
+说明：消息发送以后，可以调用次接口删除消息，但是请注意，只能删除用户点击详情查看的落地页面，已经推送到用户的消息记录不可以删除。
+
+请求地址：http://wxpusher.zjiecode.com/message/{messageContentId}
+
+参数说明：messageContentId是发送接口，返回的消息内容id，调用一次接口生成一个，如果是发送给多个用户，多个用户共享一个messageContentId，通过messageContentId可以删除内容，删除后本次发送的所有用户都无法再查看本条消息。
+
 
 ## 创建参数二维码 :id=create-qrcode
 有一种场景，就是需要知道当前是谁扫描的二维码，比如：论坛帖子有新消息需要推送给用户，这个如果用户扫码关注，你需要知道是谁扫的二维码，把论坛用户ID和Wxpusher用户的UID绑定，当论坛用户ID有新消息时，推送给Wxpusher用户。这种场景就需要带参数的二维码。
