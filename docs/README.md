@@ -171,7 +171,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：查询消息状态，消息缓存有时效性，目前设置缓存时间为7天，7天后查询消息，可能会返回消息不存在
 
-请求地址：https://wxpusher.zjiecode.com/query/status/{sendRecordId}
+请求地址：https://wxpusher.zjiecode.com/api/query/status/{sendRecordId}
 
 ## 删除消息
 
@@ -179,7 +179,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：消息发送以后，可以调用次接口删除消息，但是请注意，只能删除用户点击详情查看的落地页面，已经推送到用户的消息记录不可以删除。
 
-请求地址：https://wxpusher.zjiecode.com/message/{messageContentId}
+请求地址：https://wxpusher.zjiecode.com/api/message/{messageContentId}
 
 参数说明：messageContentId是发送接口，返回的消息内容id，调用一次接口生成一个，如果是发送给多个用户，多个用户共享一个messageContentId，通过messageContentId可以删除内容，删除后本次发送的所有用户都无法再查看本条消息。
 
