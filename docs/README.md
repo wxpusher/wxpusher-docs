@@ -6,9 +6,11 @@
 你可以使用**WxPusher**来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
 # demo演示程序
  
-你可以访问演示程序，体验功能：[http://wxpusher.zjiecode.com/demo/](http://wxpusher.zjiecode.com/demo/)
+你可以访问演示程序，体验功能：[https://wxpusher.zjiecode.com/demo/](https://wxpusher.zjiecode.com/demo/)
 
 演示程序源代码：[https://github.com/wxpusher/wxpusher-sdk-java/](https://github.com/wxpusher/wxpusher-sdk-java/)
+
+管理后台：[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)
 
 **请一定不要调用demo程序，直接给用户发送消息！！！**
 
@@ -67,7 +69,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 ## 注册并且创建应用
   
-[http://wxpusher.zjiecode.com/admin/](http://wxpusher.zjiecode.com/admin/) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
+[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
 
 创建一个应用，如下图：
 
@@ -86,7 +88,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 ## 获取appToken
 在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重制它。
 
-打开应用的后台[http://wxpusher.zjiecode.com/admin/](http://wxpusher.zjiecode.com/admin/)，从左侧菜单栏，找到appToken菜单，在这里，你可以重置appToken，请注意，重置后，老的appToken会立即失效，调用接口会失败。
+打开应用的后台[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)，从左侧菜单栏，找到appToken菜单，在这里，你可以重置appToken，请注意，重置后，老的appToken会立即失效，调用接口会失败。
 
 ![获取appToken](imgs/appToken.png  ':size=350')
 
@@ -114,7 +116,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
   Content-Type:application/json
   
-  地址：http://wxpusher.zjiecode.com/api/send/message
+  地址：https://wxpusher.zjiecode.com/api/send/message
 
   请求数据放在body里面，具体参数如下：
 
@@ -130,7 +132,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "uids":[//发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。
         "UID_xxxx"
     ],
-    "url":"http://wxpusher.zjiecode.com", //原文链接，可选参数
+    "url":"https://wxpusher.zjiecode.com", //原文链接，可选参数
     "verifyPay":false //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
 }
   ```
@@ -158,7 +160,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 - GET接口
   GET接口是对POST接口的阉割，主要是为了某些情况下调用方便，只支持对文字（contentType=1）的发送，举例：
   ```
-  http://wxpusher.zjiecode.com/api/send/message/?appToken=AT_qHT0cTQfLwYOlBV9cJj9zDSyEmspsmyM&content=123&uid=c1BcpqxEbD8irqlGUh9BhOqR2BvH8yWZ&url=http%3a%2f%2fwxpusher.zjiecode.com
+  https://wxpusher.zjiecode.com/api/send/message/?appToken=AT_qHT0cTQfLwYOlBV9cJj9zDSyEmspsmyM&content=123&uid=c1BcpqxEbD8irqlGUh9BhOqR2BvH8yWZ&url=http%3a%2f%2fwxpusher.zjiecode.com
   ```
   请求参数支持：appToken、uid、topicId、content、url、verifyPay ，其中content和url请进行urlEncode编码。
 
@@ -169,7 +171,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：查询消息状态，消息缓存有时效性，目前设置缓存时间为7天，7天后查询消息，可能会返回消息不存在
 
-请求地址：http://wxpusher.zjiecode.com/query/status/{sendRecordId}
+请求地址：https://wxpusher.zjiecode.com/query/status/{sendRecordId}
 
 ## 删除消息
 
@@ -177,7 +179,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：消息发送以后，可以调用次接口删除消息，但是请注意，只能删除用户点击详情查看的落地页面，已经推送到用户的消息记录不可以删除。
 
-请求地址：http://wxpusher.zjiecode.com/message/{messageContentId}
+请求地址：https://wxpusher.zjiecode.com/message/{messageContentId}
 
 参数说明：messageContentId是发送接口，返回的消息内容id，调用一次接口生成一个，如果是发送给多个用户，多个用户共享一个messageContentId，通过messageContentId可以删除内容，删除后本次发送的所有用户都无法再查看本条消息。
 
@@ -187,7 +189,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 请求方式：POST
 
-请求地址：http://wxpusher.zjiecode.com/api/fun/create/qrcode
+请求地址：https://wxpusher.zjiecode.com/api/fun/create/qrcode
 
 ContentType：application/json
 
@@ -231,7 +233,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 ~~说明：获取到所有关注应用的微信用户用户信息~~
 
-~~请求地址：http://wxpusher.zjiecode.com/api/fun/wxuser~~
+~~请求地址：https://wxpusher.zjiecode.com/api/fun/wxuser~~
 
 ~~请求参数：~~
  - appToken 应用密钥标志
@@ -263,7 +265,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 说明：获取到所有关注应用/主题的微信用户用户信息。**需要注意，一个微信用户，如果同时关注应用，主题，甚至关注多个主题，会返回多条记录。**
 
-请求地址：http://wxpusher.zjiecode.com/api/fun/wxuser/v2
+请求地址：https://wxpusher.zjiecode.com/api/fun/wxuser/v2
 
 请求参数：
  - appToken 应用密钥标志
@@ -307,7 +309,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 说明：你可以删除用户对应用、主题的关注，删除以后，用户可以重新关注，如想让用户再次关注，可以调用拉黑接口，对用户拉黑。
 
-请求地址：http://wxpusher.zjiecode.com/api/fun/remove
+请求地址：https://wxpusher.zjiecode.com/api/fun/remove
 
 请求参数(Query)：
  - appToken 应用密钥标志
@@ -330,7 +332,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 说明：拉黑以后不能再发送消息，用户也不能再次关注，除非你取消对他的拉黑。调用拉黑接口，不用再调用删除接口。
 
-请求地址：http://wxpusher.zjiecode.com/api/fun/reject
+请求地址：https://wxpusher.zjiecode.com/api/fun/reject
 
 请求参数(Query)：
  - appToken 应用密钥标志
