@@ -483,6 +483,18 @@ WxPusher是免费的推送服务，为了能更好的服务大家，这里说明
 - 单条消息最大发送UID的数量<2000，单条消息最大发送topicIds的数量<5;
 - 单个微信用户，也就是单个UID，每天最多接收500条消息，请合理安排发送频率。
 
+# 其他客户端
+
+为了更好的用户体验，我们正在努力开发更多的客户端，以提高用户的体验。
+## Chrome扩展
+Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览器，就可以接收消息，目前支持Mac、Window电脑，接收消息的体验比微信更好，欢迎体验使用。
+Chrome扩展是开源的，你可以访问这里<a href="https://github.com/wxpusher/wxpusher-chrome-extensions">https://github.com/wxpusher/wxpusher-chrome-extensions</a>下载和安装浏览器插件。
+
+- 目前浏览器插件消息会在服务器缓存24小时，浏览器关闭以后，24小时以内上线，会重新把消息发送给你，如果超过24小时，消息会被丢弃；
+- Chrome扩展是微信公众号的拓展，绑定Chrome扩展以后，Chrome和微信公众号会同时收到消息；
+
+
+_因为目前是基于浏览器V2 API开发的，谷歌不让上架，等我们迁移到V3后会在Chrome Store上架_
 
 # 迁移升级
 
