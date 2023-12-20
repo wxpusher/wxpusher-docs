@@ -136,20 +136,20 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "verifyPay":false //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
 }
   ```
+  html格式，支持通过标签复制，复制的语法如下：
+  ```html
+  <copy stype="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
+        复制按钮的文字
+  </copy>
+  ```
 
-html格式，支持通过标签复制，复制的语法如下：
-```html
-<copy stype="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
-    复制按钮的文字
-</copy>
-```
+  一个例子如下，style默认可以不写：
+  ```html
+  <copy data-clipboard-text="被复制的内容">
+        复制
+  </copy>
+  ```
 
-一个例子如下：
-```html
-<copy stype="border-width: 2px;border-style: outset;border-color: #000000;" data-clipboard-text="被复制的内容">
-    复制
-</copy>
-```
 
 返回数据说明：
 ```json
