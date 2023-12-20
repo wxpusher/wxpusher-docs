@@ -137,6 +137,20 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 }
   ```
 
+html格式，支持通过标签复制，复制的语法如下：
+```html
+<copy stype="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
+    复制按钮的文字
+</copy>
+```
+
+一个例子如下：
+```html
+<copy stype="border-width: 2px;border-style: outset;border-color: #000000;" data-clipboard-text="被复制的内容">
+    复制
+</copy>
+```
+
 返回数据说明：
 ```json
 {
