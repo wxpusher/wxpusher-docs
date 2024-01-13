@@ -410,6 +410,10 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 具体可以查看<a href="#/?id=send-msg">发送消息的接口</a>说明，没有包装成产品的应用或者主题，verifyPay字段无效，可以不用传递。
 
+**特别说明：**
+1. 我们目前不接收股票、期货的策略推荐类消息上架；
+2. 同一种消息，我们仅上架一个，请不要重复提交；
+3. 如果你是新接入，你可以先联系微信客服lanyunt，确定可以上架，再进行开发，避免浪费时间。
 
 # 回调说明 :id=callback
 当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
