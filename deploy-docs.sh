@@ -1,7 +1,7 @@
 
 if [[ $1 == "-p" ]]; then
   deployPath=/data/wxpusher/wxpusher-docs-fe/docs/
-  server=101.34.81.179 
+  server=111.231.72.229
   port=22
   echo "腾讯main服务器"
 else

@@ -120,25 +120,36 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
   请求数据放在body里面，具体参数如下：
 
+  __JSON不支持注释，发送的时候，需要删除注释。__
+
   ```json
   {
-    "appToken":"AT_xxx",
-    "content":"Wxpusher祝你中秋节快乐!",
-    "summary":"消息摘要",//消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度100，可以不传，不传默认截取content前面的内容。
-    "contentType":1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
-    "topicIds":[ //发送目标的topicId，是一个数组！！！，也就是群发，使用uids单发的时候， 可以不传。
+    "appToken":"AT_xxx",//必传
+    "content":"<h1>这里是标题</h1><br/><p style=\"color:red;\">欢迎你使用WxPusher，推荐使用HTML发送</p>",//必传
+    //消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度20(微信只能显示20)，可以不传，不传默认截取content前面的内容。
+    "summary":"消息摘要",
+    //内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签，推荐使用这种) 3表示markdown 
+    "contentType":2,
+    //发送目标的topicId，是一个数组！！！，也就是群发，使用uids单发的时候， 可以不传。
+    "topicIds":[ 
         123
     ],
-    "uids":[//发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。
+    //发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。
+    "uids":[
         "UID_xxxx"
     ],
-    "url":"https://wxpusher.zjiecode.com", //原文链接，可选参数
-    "verifyPay":false //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
+    //原文链接，可选参数
+    "url":"https://wxpusher.zjiecode.com", 
+    //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
+    //verifyPay字段即将被废弃，请使用verifyPayType字段，传verifyPayType会忽略verifyPay
+    "verifyPay":false, 
+    //是否验证订阅时间，0：不验证，1:只发送给付费的用户，2:只发送给未订阅或者订阅过期的用户
+    "verifyPayType":0 
 }
   ```
   html格式的消息（contentType=2），支持通过标签复制，复制的语法如下：
   ```html
-  <copy stype="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
+  <copy style="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
         复制按钮的文字
   </copy>
 
@@ -152,7 +163,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 返回数据说明：
 ```json
 {
-    "code": 1000, //状态码
+    "code": 1000, //状态码，非1000表示有异常
     "msg": "处理成功",//提示消息
     "data": [ //每个uid/topicid的发送状态，和发送的时候，一一对应，是一个数组，可能有多个
         {
@@ -167,14 +178,16 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     ],
     "success": true
 }
-```
 
+```
 - GET接口
   GET接口是对POST接口的阉割，主要是为了某些情况下调用方便，只支持对文字（contentType=1）的发送，举例：
   ```
   https://wxpusher.zjiecode.com/api/send/message/?appToken=AT_qHT0cTQfLwYOlBV9cJj9zDSyEmspsmyM&content=123&uid=c1BcpqxEbD8irqlGUh9BhOqR2BvH8yWZ&url=http%3a%2f%2fwxpusher.zjiecode.com
   ```
-  请求参数支持：appToken、uid、topicId、content、url、verifyPay ，其中content和url请进行urlEncode编码。
+  请求参数支持：appToken、**uid**、**topicId**、content、url、verifyPayType ，其中content和url请进行urlEncode编码。
+
+  GET接口只支持发送一个uid或者topicId，推荐使用POST接口
 
 ## 查询状态
 消息发送给Wxpusher，Wxpusher会缓存下来，后台异步推送给微信再分发给用户，当消息数量庞大的时候，可能会有延迟，你可以根据发送消息返回的sendRecordId，查询消息给此用户的发送状态
