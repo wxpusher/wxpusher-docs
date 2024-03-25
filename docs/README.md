@@ -337,7 +337,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 
 请求方式：*DELETE*
 
-说明：你可以删除用户对应用、主题的关注，删除以后，用户可以重新关注，如想让用户再次关注，可以调用拉黑接口，对用户拉黑。
+说明：你可以删除用户对应用、主题的关注，删除以后，用户可以重新关注，如不想让用户再次关注，可以调用拉黑接口，对用户拉黑。
 
 请求地址：https://wxpusher.zjiecode.com/api/fun/remove
 
