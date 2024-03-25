@@ -419,8 +419,8 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 包装为产品的应用或者主题，在发送消息的时候，可以区分本条消息是否只有付费订阅期内的用户才收得到。
 根据verifyPayType字段来做区别
  - verifyPayType=0，表示本条消息，不验证付费状态，发送给所有用户
- - verifyPayType=1，表示本条消息，只发送给订阅期内的用户
- - verifyPayType=2，表示本条消息，只发送给未订阅或者订阅过期的用户
+ - verifyPayType=1，表示本条消息，只发送给付费订阅期内的用户
+ - verifyPayType=2，表示本条消息，只发送给未订阅或者付费订阅过期的用户
 
 具体可以查看<a href="#/?id=send-msg">发送消息的接口</a>说明，没有关联消息产品的应用或者主题，verifyPayType字段无效，可以不用传递。
 
