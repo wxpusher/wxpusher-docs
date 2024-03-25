@@ -125,7 +125,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   ```json
   {
     "appToken":"AT_xxx",//必传
-    "content":"<h1>这里是标题</h1><br/><p style=\"color:red;\">欢迎你使用WxPusher，推荐使用HTML发送</p>",//必传
+    "content":"<h1>H1标题</h1><br/><p style=\"color:red;\">欢迎你使用WxPusher，推荐使用HTML发送</p>",//必传
     //消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度20(微信只能显示20)，可以不传，不传默认截取content前面的内容。
     "summary":"消息摘要",
     //内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签，推荐使用这种) 3表示markdown 
