@@ -498,6 +498,7 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 
 ![获取应用信息](imgs/app-info.png  )
 
+
 回调使用POST方法，数据格式如下：
 ```json
 {
