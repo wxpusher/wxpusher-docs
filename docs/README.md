@@ -480,11 +480,23 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ## 上行消息（用户发送消息回调）
 目前WxPusher已经支持指令类的上行消息，用户发送指令，WxPusher会将指令消息回调给开发者。
 
-指令的格式为：**#{appID} 内容**  ，比如给[演示程序](https://wxpusher.zjiecode.com/demo/)发送消息，可以发送：#97 测试 ，注意中间有一个空格。
+- 标准指令
+  
+  指令的格式为：**#{appID} 内容**  ，比如给[演示程序](https://wxpusher.zjiecode.com/demo/)发送消息，可以发送：#97 测试 ，注意中间有一个空格。
 
-如果只发送：#{appID} ，比如：#97 ，后面没有内容，表示关注appID为97的应用，**开发者不会收到回调消息**。
+- 订阅指令
+  
+  如果只发送appID：**#{appID}**，比如：#97 ，后面没有内容，表示关注appID为97的应用。
+
+- 简化指令
+  
+  如果只发送内容：xxx ，比如：重启服务器 ，这个时候又分为2种情况：
+  - 只订阅了一个应用，会直接发送给给这个默认应用
+  - 订阅了多个应用，这个时候用户会提示用户选择，在手机端可以直接点击完成操作。
 
 appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjiecode.com/admin/main/app/appInfo)-应用id 查看。
+
+![获取应用信息](imgs/app-info.png  )
 
 回调使用POST方法，数据格式如下：
 ```json
