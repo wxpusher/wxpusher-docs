@@ -399,6 +399,9 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ## 创建消息产品
 消息产品是对单发的应用消息，群发的主题消息的包装，可以把多个消息，包装到一个消息产品下进行销售。
 
+> 请注意，我们暂时不接受股票、期权、债券、基金等的策略推荐类消息上架
+
+
 ![创建产品](imgs/create_product.jpg  )
 
 请注意，目前产品创建后，不支持修改，请填写清楚后再提交。
