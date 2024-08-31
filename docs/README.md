@@ -1,10 +1,10 @@
 # 介绍
 
-> 什么是WxPusher
+## 什么是WxPusher
 
 **WxPusher** (微信推送服务)是一个使用微信公众号作为通道的，实时信息推送平台，你可以通过调用API的方式，把信息推送到微信上，无需安装额外的软件，即可做到信息实时通知。
 你可以使用**WxPusher**来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
-# demo演示程序
+## demo演示程序
  
 你可以访问演示程序，体验功能：[https://wxpusher.zjiecode.com/demo/](https://wxpusher.zjiecode.com/demo/)
 
@@ -12,16 +12,30 @@
 
 管理后台：[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)
 
-**请一定不要调用demo程序，直接给用户发送消息！！！**
+> 请一定不要调用demo程序，直接给用户发送消息！！！
 
-# 效果预览
+## 效果预览
 **微信接口调整，直接发送文本消息的方式已经下线**，我们正在开发新的推送方式，敬请期待。
 
 类型|获取用户ID|模版消息|~~普通发送~~|~~带链接的消息~~|~~长文本消息~~
 :--:|:--:|:--:|:---:|:---:|:---:
 预览|![创建应用](imgs/getid.jpg  ':size=250')|![创建应用](imgs/type_4.jpg  ':size=250')|![创建应用](imgs/type_1.jpg  ':size=250')|![创建应用](imgs/type_2.jpg  ':size=250')|![创建应用](imgs/type_3.jpg  ':size=250')
 
-# 名词解释
+# 2种发送方式
+为了方便不同的用户群体，不同的使用场景，更快捷方便的发送消息，我们目前支持了2种使用WxPusher的方式。
+
+> - **请注意，这2种发送方式，身份标志不一样，不可以相互迁移或者切换;**
+> - **在有条件的情况下，强烈建议使用第一种方式，能力更佳完善。**
+
+发送方式|优点、缺点和适用场景
+:--:|:--
+标准推送【推荐】<br/>(标准应用开发)|<ul><li>发送消息和接收消息的不是同一个人</li><li>可以管理接收消息的用户</li><li>可以支持上行消息等高级功能</li><li>适合有一定开发经验的开发者</li><li>无特殊限制，具体可以查看<a href="#/?id=limit">限制说明</a></li></ul>
+极简推送<br/>（SPT一键推送）|<ul><li>发送消息和接收消息的是同一个人</li><li>非常简单，无需登陆，创建应用等</li><li>简单发送消息能力，无法管理消息和接收者</li><li>适合无经验但是想简单发送消息的用户</li><li>最多一次发送给10个人，具体说明请查看<a href="#/?id=spt">极简推送接口</li></ul>
+
+
+
+# 方式一：标准推送
+## 名词解释
 - 应用
 
 对应你的一个项目 ，主要用来做鉴权，资源隔离等（类比使用高德地图SDK、微信登录等，都会先新建一个应用），每个应用拥有独立的名字，二维码，回调地址，调用资源，鉴权信息等，发送消息第一步，需要先新建一个应用。
@@ -60,14 +74,14 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   
 微信用户标志，在单独给某个用户发送消息时，来说明要发给哪个用户。
 
-# 快速接入
+## 快速接入
 
-## 整体架构
+### 整体架构
 
 在接入之前，你可以看一下架构图，有助于你理解单发，群发的区别。
 ![系统架构](imgs/structure.png )
 
-## 注册并且创建应用
+### 注册并且创建应用
   
 [https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/) ，使用微信扫码登录，无需注册，新用户首次扫码自动注册。
 
@@ -85,32 +99,32 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 说明：描述一下，你的应用，推送的是啥内容，用户通过链接关注，或者在微信端查看的时候可以看到。
 
-## 获取appToken
+### 获取appToken
 在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重制它。
 
 打开应用的后台[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)，从左侧菜单栏，找到appToken菜单，在这里，你可以重置appToken，请注意，重置后，老的appToken会立即失效，调用接口会失败。
 
 ![获取appToken](imgs/appToken.png  ':size=350')
 
-## 扫码关注应用
+### 扫码关注应用
 创建应用以后，你可以看到应用的应用码和关注链接，你可以让你的用户通过下面2种方式来关注你的应用，关注你的应用以后，你就可以给他发送消息了。
 
 ![创建应用](imgs/subscribe.png  ':size=350')
 
-## 获取UID
+### 获取UID
 目前有3种方式获取UID：
 1. 关注公众号：wxpusher，然后点击「我的」-「我的UID」查询到UID；
 1. 通过<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个定制的二维码，用户扫描此二维码后，会通过<a href="#/?id=subscribe-callback">用户关注回调</a>把UID推送给你；
 1. 通过<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个定制的二维码，然后用<a href="#/?id=query-uid">查询扫码用户UID</a>接口，查询扫描此二维码的用户UID；
 
-## 发送消息
+### 发送消息
 拿到UID以后，配合应用的appToken，然后调用发送接口发送消息。
 
-# HTTP接口说明
+## HTTP接口说明
 
 所有接口均已经支持https。
 
-## 发送消息 :id=send-msg
+### 发送消息 :id=send-msg
 - POST接口
   POST接口是功能完整的接口，推荐使用。
 
@@ -189,7 +203,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
   GET接口只支持发送一个uid或者topicId，推荐使用POST接口
 
-## 查询状态
+### 查询状态
 消息发送给Wxpusher，Wxpusher会缓存下来，后台异步推送给微信再分发给用户，当消息数量庞大的时候，可能会有延迟，你可以根据发送消息返回的sendRecordId，查询消息给此用户的发送状态
 
 请求方式：GET
@@ -201,7 +215,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 参数说明：
 - sendRecordId 发送消息接口返回的发送id，对应给一个uid或者topic的发送id
 
-## 删除消息
+### 删除消息
 
 请求方式：DELETE
 
@@ -214,7 +228,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 - appToken 应用鉴权的AppToken，和发送消息用的appToken是一样的 
 
 
-## 创建参数二维码 :id=create-qrcode
+### 创建参数二维码 :id=create-qrcode
 有一种场景，就是需要知道当前是谁扫描的二维码，比如：论坛帖子有新消息需要推送给用户，这个如果用户扫码关注，你需要知道是谁扫的二维码，把论坛用户ID和Wxpusher用户的UID绑定，当论坛用户ID有新消息时，推送给Wxpusher用户。这种场景就需要带参数的二维码。
 
 请求方式：POST
@@ -236,7 +250,7 @@ ContentType：application/json
  
 ```
 
-## 查询扫码用户UID :id=query-uid
+### 查询扫码用户UID :id=query-uid
 用户扫描参数二维码后，设置了回调地址，我们会通过回调地址把用户的UID推送给你的服务，具体见<a href="#/?id=callback">回调说明</a>，推荐使用这种回调的方式。
 
 但是部分用户场景简单，或者没有后端服务，比如客户端软件，使用很不方便，因此我们增加了这个查询接口，通过上面的<a href="#/?id=create-qrcode">创建参数二维码</a>接口创建一个二维码，你会拿到一个二维码的code，用此code配合这个接口，可以查询到最后一次扫描参数二维码用户的UID。
@@ -255,7 +269,7 @@ ContentType：application/json
 https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ```
 
-## ~~查询用户列表V1（已弃用）~~
+### ~~查询用户列表V1（已弃用）~~
 **本接口已经被弃用，请使用下面 查询App的关注用户V2接口**
 ~~你可以通过本接口，分页查询到所有关注你App的微信用户。~~
 
@@ -288,7 +302,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
     "total":3//所有的用户数量
 }
 ```
-## 查询用户列表V2 :id=user-list
+### 查询用户列表V2 :id=user-list
 你可以通过本接口，分页查询到所有关注应用和关注主题的用户。
 
 请求方式：GET
@@ -332,7 +346,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 }
 ```
 
-## 删除用户
+### 删除用户
 你可以通过本接口，删除用户对应用，主题的关注。
 
 请求方式：*DELETE*
@@ -355,7 +369,7 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 }
 ```
 
-## 拉黑用户
+### 拉黑用户
 你可以通过本接口，可以拉黑用户
 
 请求方式：*PUT*
@@ -380,61 +394,83 @@ https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ```
 
 
-# SDK调用
+## SDK调用
 
 为了方便快速接入，各位热心的开发者贡献了很多接入SDK，[https://github.com/wxpusher/wxpusher-client](https://github.com/wxpusher/wxpusher-client).
 
 **SDK是开发者们贡献，可能不包括最新的API或者功能，功能以本文的的HTTP接口为准，也欢迎你提PR给我们。**
 
-# 消息产品收费
+# 方式二：极简推送 :id=spt
 
-<p style="font-size:1.1em;font-weight:600">请注意，此收费是指：消息开发者，通过WxPusher向消息接收者收费，<font color="red">而不是指WxPusher向开发者或者用户收费</font>。</p>
+**极简推送，不需要注册用户，登陆后台，创建应用，获取appToken等。**
 
-![收费流程](imgs/pay_flow.png  )
+为了避免用户理解太多概念，导致接入困难，部分**自己给自己发送消息的场景**，可以使用极简推送方式。
 
-作为开发者，<font color="red">你负责提供有价值的消息，我们负责帮你赚钱变现</font>。
+比如：部分开源商城订单系统，下单后给用户发送消息；短信转发系统等；之前需要用户创建应用，获取appToken，关注应用，填写UID等等，对普通用户来说，成本太高。
 
-接入的流程如下：
+极简推送只需要2步就可以完成推送：
+- 获取推送的SPT（simple push token，极简推送的身份ID，用于确定你要把消息推送给谁）
+- 调用http接口进行消息推送
 
-## 创建消息产品
-消息产品是对单发的应用消息，群发的主题消息的包装，可以把多个消息，包装到一个消息产品下进行销售。
+## 获取SPT
 
-> 请注意，我们暂时不接受股票、期权、债券、基金等的策略推荐类消息上架
+直接扫描下面二维码即可获取你的推送SPT
 
+![获取SPT](https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5VVtya0cQXEJWPjqBdW3gKLifS.jpg  ':size=200')
 
-![创建产品](imgs/create_product.jpg  )
+如果需要在你的系统里面展示这个二维码，你可以使用下面的永久链接:
 
-请注意，目前产品创建后，不支持修改，请填写清楚后再提交。
+<textarea readonly style="width:100%;height:60px;">
+https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5VVtya0cQXEJWPjqBdW3gKLifS.jpg
+</textarea>
 
-提交后，请联系客服微信「wxpusher-kefu」进行审核，付费价格策略等商谈，完成后可以上架到消息市场，用户可以直接在消息市场支付购买。
+> **请勿泄漏SPT，SPT泄漏后，任意用户都可以给你发送消息！！！**
 
-## 消息市场
-说明|消息市场|消息产品列表|消息产品介绍
-:--:|:--:|:--:|:--:
-示例|![创建应用](imgs/market.jpg  ':size=250')|![创建应用](imgs/product-list.jpg  ':size=250')|![创建应用](imgs/product-detail.jpg  ':size=250')
+## 发送消息
 
-## 付费信息查询
+- GET请求极简发送
 
-通过<a href="#/?id=user-list">查询用户列表V2</a>可以查询用户信息，其中payEndTime就是用户的订阅到期时间。
+    把你上一步获取到的SPT，放在下面的链接里面
 
-## 付费消息标记
+    直接请求：https://wxpusher.zjiecode.com/api/send/message/你获取到的SPT/你要发送的内容
 
-包装为产品的应用或者主题，在发送消息的时候，可以区分本条消息是否只有付费订阅期内的用户才收得到。
-根据verifyPayType字段来做区别
- - verifyPayType=0，表示本条消息，不验证付费状态，发送给所有用户
- - verifyPayType=1，表示本条消息，只发送给付费订阅期内的用户
- - verifyPayType=2，表示本条消息，只发送给未订阅或者付费订阅过期的用户
+- POST请求极简发送
 
-具体可以查看<a href="#/?id=send-msg">发送消息的接口</a>说明，没有关联消息产品的应用或者主题，verifyPayType字段无效，可以不用传递。
+    请求方式：POST
 
-**特别说明：**
-1. 我们目前不接收股票、期货的策略推荐类消息上架；
-2. 同一种消息，我们仅上架一个，请不要重复提交；
-3. 如果你是新接入，你可以先联系微信客服wxpusher-kefu，确定可以上架，再进行开发，避免浪费时间。
+    请求URL：https://wxpusher.zjiecode.com/api/send/message/simple-push
+
+    请求格式：Content-Type:application/json
+
+    请求内容：
+
+```json
+//JSON不支持注释，发送的时候，需要删除注释。
+{
+    //推送内容，必传
+    "content":"<h1>极简推送</h1><br/><p style=\"color:red;\">欢迎你使用WxPusher，推荐使用HTML发送</p>",
+    //消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度20(微信只能显示20)，可以不传，不传默认截取content前面的内容。
+    "summary":"消息摘要",
+    //内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签，推荐使用这种) 3表示markdown 
+    "contentType":2,
+    //发送SPT，如果发送给一个用户，直接传simplePushToken就行了，不用传simplePushTokenList
+    "simplePushToken":"",
+    //发送SPT，如果发送给多个用户，传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
+    "simplePushTokenList":["SPT_xx1","SPT_xx2"],
+    //原文链接，可选参数
+    "url":"https://wxpusher.zjiecode.com",
+}
+
+```
 
 # 回调说明 :id=callback
+
+> 请注意：只有方式一（标准推送）才支持回调
+
 当用户关注应用或者发送命令消息到公众号的时候，WxPusher会将消息推送给你。
 如果你没有后台服务，也可以轮训，参考<a href="#/?id=query-uid">查询扫码用户UID</a>接口。
+
+
 
 ## 用户关注回调 :id=subscribe-callback
 给用户发送消息，需要知道用户的UID，有2种途径知道用户的UID：
@@ -516,6 +552,55 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 }
 ```
 
+# 消息产品收费
+
+> 请注意：只有方式一（标准推送）才支持消息产品收费
+
+<p style="font-size:1.1em;font-weight:600">请注意，此收费是指：消息开发者，通过WxPusher向消息接收者收费，<font color="red">而不是指WxPusher向开发者或者用户收费</font>。</p>
+
+![收费流程](imgs/pay_flow.png  )
+
+作为开发者，<font color="red">你负责提供有价值的消息，我们负责帮你赚钱变现</font>。
+
+接入的流程如下：
+
+## 创建消息产品
+消息产品是对单发的应用消息，群发的主题消息的包装，可以把多个消息，包装到一个消息产品下进行销售。
+
+> 请注意，我们暂时不接受股票、期权、债券、基金等的策略推荐类消息上架
+
+
+![创建产品](imgs/create_product.jpg  )
+
+请注意，目前产品创建后，不支持修改，请填写清楚后再提交。
+
+提交后，请联系客服微信「wxpusher-kefu」进行审核，付费价格策略等商谈，完成后可以上架到消息市场，用户可以直接在消息市场支付购买。
+
+## 消息市场
+说明|消息市场|消息产品列表|消息产品介绍
+:--:|:--:|:--:|:--:
+示例|![创建应用](imgs/market.jpg  ':size=250')|![创建应用](imgs/product-list.jpg  ':size=250')|![创建应用](imgs/product-detail.jpg  ':size=250')
+
+## 付费信息查询
+
+通过<a href="#/?id=user-list">查询用户列表V2</a>可以查询用户信息，其中payEndTime就是用户的订阅到期时间。
+
+## 付费消息标记
+
+包装为产品的应用或者主题，在发送消息的时候，可以区分本条消息是否只有付费订阅期内的用户才收得到。
+根据verifyPayType字段来做区别
+ - verifyPayType=0，表示本条消息，不验证付费状态，发送给所有用户
+ - verifyPayType=1，表示本条消息，只发送给付费订阅期内的用户
+ - verifyPayType=2，表示本条消息，只发送给未订阅或者付费订阅过期的用户
+
+具体可以查看<a href="#/?id=send-msg">发送消息的接口</a>说明，没有关联消息产品的应用或者主题，verifyPayType字段无效，可以不用传递。
+
+**特别说明：**
+1. 我们目前不接收股票、期货的策略推荐类消息上架；
+2. 同一种消息，我们仅上架一个，请不要重复提交；
+3. 如果你是新接入，你可以先联系微信客服wxpusher-kefu，确定可以上架，再进行开发，避免浪费时间。
+
+
 # 其他客户端
 
 为了更好的用户体验，我们正在努力开发更多的客户端，以提高用户的体验。
@@ -523,18 +608,33 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览器，就可以接收消息，目前支持Mac、Window电脑，接收消息的体验比微信更好，欢迎体验使用。
 你可以访问这里<a href="https://github.com/wxpusher/wxpusher-chrome-extensions">https://github.com/wxpusher/wxpusher-chrome-extensions</a>下载和安装浏览器插件。
 
+你也可以访问这里，查看具体的安装使用方式：https://mp.weixin.qq.com/s/zrUdVqrE0odhUTiD7qhWiQ
+
 - 目前浏览器插件消息会在服务器缓存24小时，浏览器关闭以后，24小时以内上线，会重新把消息发送给你，如果超过24小时，消息会被丢弃；
 - Chrome扩展是微信公众号的拓展，绑定Chrome扩展以后，Chrome和微信公众号会同时收到消息；
-- 请在window设置-通知，把对应浏览器的通知权限打开，否则可能没有消息提醒
+- Window用户，请在window设置-通知，把对应浏览器的通知权限打开，否则可能没有消息提醒
+- Mac用户，请在设置-通知与专注模式-Chrome，允许通知，否则可能没有消息提醒
+
 
 _因为目前是基于浏览器V2 API开发的，谷歌不让上架，等我们迁移到V3后会在Chrome Store上架_
 
+## iOS苹果客户端
 
-# 限制说明
+因为微信的内容限制，为更好的用户体验，欢迎你下载iOS苹果客户端来接收消息，用户体验更佳，下载方式如下：
+- 打开AppStore（苹果应用商店），搜索：WxPusher，下载安装
+- [点击这里的链接](https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603)，直接打开并下载应用
+
+![iOS客户端](imgs/ios-list.jpg  ':size=500')
+
+## Android客户端
+
+因为国内Android生态问题，Android应用还在开发中，十分抱歉。
+
+# 限制说明 :id=limit
 WxPusher是免费的推送服务，为了能更好的服务大家，这里说明一下系统相关数据限制
 - 消息发送，必须合法合规，发送违规违法欺诈等等非正常消息，可能被封号；
 - WxPusher推送的是实时消息，时效性比较强，过期以后消息也就没有价值了，目前WxPusher会为你保留7天的数据 ，7天以后不再提供可靠性保证，会不定时清理历史消息；
 - 单条消息的数据长度(字符数)限制是：content<40000;summary<20(微信的限制，大于20显示不完);url<400，;
 - 单条消息最大发送UID的数量<2000，单条消息最大发送topicIds的数量<5;
 - 单个微信用户，也就是单个UID，每天最多接收2000条消息，请合理安排发送频率；
-- 发送消息，最大QPS不能超过1，比如最多连续10秒调用10次发送接口，超过这个限制会被系统拦截。如果你需要大量发送消息，推荐使用主题，或者一次发送的时候，附带多个uid。
+- 发送消息，最大QPS不能超过2，比如最多连续10秒调用20次发送接口，超过这个限制会被系统拦截。如果你需要大量发送消息，推荐使用主题，或者一次发送的时候，附带多个uid。
