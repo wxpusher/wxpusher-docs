@@ -454,8 +454,8 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
     //内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签，推荐使用这种) 3表示markdown 
     "contentType":2,
     //发送SPT，如果发送给一个用户，直接传simplePushToken就行了，不用传simplePushTokenList
-    "spt":"",
-    //发送SPT，如果发送给多个用户，传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
+    "spt":"SPT_xx1",
+    //发送SPT，如果发送给多个用户，只传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
     "sptList":["SPT_xx1","SPT_xx2"],
     //原文链接，可选参数
     "url":"https://wxpusher.zjiecode.com",
