@@ -653,7 +653,9 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 为了更好的用户体验，我们正在努力开发更多的客户端，以提高用户的体验。
 ## Chrome扩展
 Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览器，就可以接收消息，目前支持Mac、Window电脑，接收消息的体验比微信更好，欢迎体验使用。
-你可以访问这里<a href="https://github.com/wxpusher/wxpusher-chrome-extensions">https://github.com/wxpusher/wxpusher-chrome-extensions</a>下载和安装浏览器插件。
+如果你能访问谷歌，你可以直接访问<a href="https://chromewebstore.google.com/detail/wxpusher/hjjmlbnpgnnnnkfbnajpmbakkjobgmjd?authuser=0&hl=zh-CN">谷歌插件商店安装 </a>
+
+你也可以访问这里<a href="https://github.com/wxpusher/wxpusher-chrome-extensions">https://github.com/wxpusher/wxpusher-chrome-extensions</a>下载和安装浏览器插件。
 
 你也可以访问这里，查看具体的安装使用方式：https://mp.weixin.qq.com/s/zrUdVqrE0odhUTiD7qhWiQ
 
@@ -663,7 +665,6 @@ Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览�
 - Mac用户，请在设置-通知与专注模式-Chrome，允许通知，否则可能没有消息提醒
 
 
-_因为目前是基于浏览器V2 API开发的，谷歌不让上架，等我们迁移到V3后会在Chrome Store上架_
 
 ## iOS苹果客户端
 
