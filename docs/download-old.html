@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title>WxPusher App下载</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description"
+    content="WxPusher消息推送平台 是一个使用微信公众号作为通道的，实时信息推送平台，你可以通过调用API的方式，把信息推送到微信上，无需安装额外的软件，即可做到信息实时通知。 你可以使用WxPusher来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 20px auto;
+    }
+
+    .slogan {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    .download-buttons {
+      margin-top: 30px;
+    }
+
+    .download-button {
+      display: inline-block;
+      background-color: #B300B3;
+      color: white;
+      padding: 10px 20px;
+      width: 60%;
+      margin: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .wechat-tip {
+      display: none;
+      color: red;
+      margin-top: 20px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+      }
+     
+     
+      #mask {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #000;
+      }
+    }
+  </style>
+  <script>
+    function isWeChat() {
+      var ua = navigator.userAgent.toLowerCase();
+      return ua.indexOf('micromessenger') !== -1;
+    }
+   
+  </script>
+</head>
+
+<body>
+  <img src="imgs/icon-512.png" alt="WxPusher" class="logo"
+    style="border-radius: 15px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);">
+  <div class="slogan">WxPusher消息推送平台</div>
+  <div class="slogan">更快捷 有提醒 不遗漏</div>
+  <div style="margin: 5px;font-size: small; color: #cccccc;">如点击无反应，请点击右上角，选择在浏览器中打开</div>
+  <div class="download-buttons">
+    <a href="https://static.zjiecode.com/apk/wxpusher-app-v1.2.3.apk" id="android-download" class="download-button" onclick="showMask(event)">下载 Android
+      版</a>
+    <a href="https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603" id="ios-download" class="download-button">下载 iOS 版</a>
+  </div>
+
+  <!-- 遮罩层 -->
+  <div id="mask"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); color:white; text-align:center; padding-top:20%;"
+    onclick="this.style.display='none';">
+    <ul style="list-style-type: none;">
+      <li>点击右上方的【···】</li>
+      <li>点击在浏览器中打开✅</li>
+    </ul>
+  </div>
+
+  <script>
+    function isWeChat() {
+      var ua = navigator.userAgent.toLowerCase();
+      return ua.indexOf('micromessenger') !== -1;
+    }
+
+    function showMask(event) {
+      if (isWeChat()) {
+        if (event) {
+          event.preventDefault();
+        }
+        document.getElementById('mask').style.display = 'block';
+      }else{
+        window.location.href = 'https://static.zjiecode.com/apk/wxpusher-app-v1.2.3.apk';
+      }
+    }
+
+    window.onload = function () {
+      if (isWeChat()) {
+        document.getElementById('wechat-tip').style.display = 'block';
+      }
+    }
+
+    function isAndroid() {
+      return /android/i.test(navigator.userAgent);
+    }
+
+    function isIOS() {
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    window.onload = function () {
+      if (isAndroid()) {
+        document.getElementById('android-download').style.cssText = `
+          transform: scale(1.2);
+          box-shadow: 0 0 10px #B300B3;
+          animation: pulse 1.5s infinite;
+        `;
+        document.getElementById('ios-download').style.display = 'none';
+        const iosText = document.createElement('div');
+        iosText.style.cssText = `
+         margin-top:20px;
+         text-decoration:underline;
+        `;
+        iosText.textContent = '点击下载 iOS 版';
+        iosText.onclick = function () {
+          window.location.href = 'https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603';
+        };
+        document.querySelector('.download-buttons').appendChild(iosText);
+      } else if (isIOS()) {
+        document.getElementById('ios-download').style.cssText = `
+          transform: scale(1.2);
+          box-shadow: 0 0 10px #B300B3;
+          animation: pulse 1.5s infinite;
+        `;
+        document.getElementById('android-download').style.display = 'none';
+        const androidText = document.createElement('div');
+        androidText.style.cssText = `
+         margin-top:20px;
+         text-decoration:underline;
+        `;
+        androidText.textContent = '点击下载 Android 版';
+        androidText.onclick = function (e) {
+          showMask(e)
+        };
+        document.querySelector('.download-buttons').appendChild(androidText);
+      }
+    }
+
+    // 添加呼吸闪烁动画
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+
+</html>
