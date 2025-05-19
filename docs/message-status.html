@@ -184,20 +184,16 @@
                 <p class="status-text"><span class="highlight">WxPusher消息推送平台</span></p>
             </div>
 
-            <div class="note">微信官方对模板消息的政策，<span class="highlight">已基本不能下发消息</span></div>
+            <div class="note">微信官方对模板消息的政策，暂停发送</span></div>
 
             <div class="status-item">
                 <span class="status-icon status-warning"></span>
                 <p class="status-text"><span class="highlight">WxPusher</span>（备用号）</p>
             </div>
-            <div class="note"><span class="highlight">每微信用户每天限接收20条</span>,为保证用户可用，进行了数量限制</div>
+            <div class="note">微信官方对模板消息的政策，暂停发送</span></div>
 
-            <div class="status-item">
-                <span class="status-icon status-bad"></span>
-                <p class="status-text"><span class="highlight">羊毛、网赚类消息</span></p>
-            </div>
-            <div class="note"><span class="highlight">不通过微信发送</span>，此类消息请<a
-                    href="https://wxpusher.zjiecode.com/docs/download.html">下载APP接收</a></div>
+            <div class="note"><span class="highlight">不通过微信发送</span>，请<a
+                    href="https://wxpusher.zjiecode.com/docs/download.html">下载APP继续接收</a></div>
         </div>
     </div>
 
@@ -254,7 +250,7 @@
         <div class="section-title">消息接收问题排查</div>
         <p>如果您仍然收不到消息，可以通过UID进行原因检查：</p>
         <div class="check-form">
-            <form action="/api/message/check-no-msg-reason" method="get">
+            <form action="/api/test/check-no-msg-reason" method="get">
                 <input type="text" name="id" placeholder="请输入您的UID">
                 <button type="submit" class="btn">检查原因</button>
             </form>
