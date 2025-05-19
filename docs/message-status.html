@@ -11,9 +11,12 @@
     <style>
         :root {
             --theme-color: #B300B3;
+            --nav-bg-color: #fff;
+
         }
 
         body {
+            background-color: #fff;
             padding: 15px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
@@ -251,7 +254,7 @@
         <p>如果您仍然收不到消息，可以通过UID进行原因检查：</p>
         <div class="check-form">
             <form action="/api/test/check-no-msg-reason" method="get">
-                <input type="text" name="id" placeholder="请输入您的UID">
+                <input type="text" name="id" style="background-color: #fff;" placeholder="请输入您的UID">
                 <button type="submit" class="btn">检查原因</button>
             </form>
         </div>
