@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 获取URL参数中的手机品牌
     const urlParams = new URLSearchParams(window.location.search);
-    const brand = urlParams.get('brand')?.toLowerCase();
+    const brand = urlParams.get('brand');
 
     // 手机品牌映射
     const brandMap = {
@@ -36,33 +36,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 检测用户设备
-    function detectDevice() {
-        const userAgent = navigator.userAgent.toLowerCase();
-        let detectedBrand = null;
+    // // 检测用户设备
+    // function detectDevice() {
+    //     const userAgent = navigator.userAgent.toLowerCase();
+    //     let detectedBrand = null;
 
-        if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
-            detectedBrand = 'apple';
-        } else if (userAgent.includes('mi ') || userAgent.includes('xiaomi')) {
-            detectedBrand = 'xiaomi';
-        } else if (userAgent.includes('huawei')) {
-            detectedBrand = 'huawei';
-        } else if (userAgent.includes('vivo')) {
-            detectedBrand = 'vivo';
-        } else if (userAgent.includes('honor')) {
-            detectedBrand = 'honor';
-        }
+    //     if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+    //         detectedBrand = 'apple';
+    //     } else if (userAgent.includes('mi ') || userAgent.includes('xiaomi')) {
+    //         detectedBrand = 'xiaomi';
+    //     } else if (userAgent.includes('huawei')) {
+    //         detectedBrand = 'huawei';
+    //     } else if (userAgent.includes('vivo')) {
+    //         detectedBrand = 'vivo';
+    //     } else if (userAgent.includes('honor')) {
+    //         detectedBrand = 'honor';
+    //     }
 
-        // 如果检测到品牌且URL中没有品牌参数，自动展开对应区块
-        if (detectedBrand && !brand) {
-            const targetSection = document.getElementById(detectedBrand);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                targetSection.querySelector('.video-container').classList.add('active');
-            }
-        }
-    }
+    //     // 如果检测到品牌且URL中没有品牌参数，自动展开对应区块
+    //     if (detectedBrand && !brand) {
+    //         const targetSection = document.getElementById(detectedBrand);
+    //         if (targetSection) {
+    //             targetSection.classList.add('active');
+    //             targetSection.querySelector('.video-container').classList.add('active');
+    //         }
+    //     }
+    // }
 
-    // 执行设备检测
-    detectDevice();
+    // // 执行设备检测
+    // detectDevice();
 }); 
