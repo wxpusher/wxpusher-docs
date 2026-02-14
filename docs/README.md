@@ -4,6 +4,9 @@
 
 **WxPusher消息推送平台** 是一个使用微信公众号作为通道的，实时信息推送平台，你可以通过调用API的方式，把信息推送到微信上，无需安装额外的软件，即可做到信息实时通知。
 你可以使用**WxPusher**来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
+
+**因为目前微信通道的不稳定，WxPusher现已切换到独立App进行消息推送，并且正在开发更多的推送通道。<a href="#/?id=app-download">查看下载APP</a>**
+
 ## demo演示程序
  
 你可以访问演示程序，体验功能：[https://wxpusher.zjiecode.com/demo/](https://wxpusher.zjiecode.com/demo/)
@@ -14,12 +17,14 @@
 
 > 请一定不要调用demo程序，直接给用户发送消息！！！
 
-## 效果预览
-**微信接口调整，直接发送文本消息的方式已经下线**，我们正在开发新的推送方式，敬请期待。
+## APP效果预览
 
-类型|获取用户ID|模版消息|~~普通发送~~|~~带链接的消息~~|~~长文本消息~~
-:--:|:--:|:--:|:---:|:---:|:---:
-预览|![创建应用](imgs/getid.jpg  ':size=250')|![创建应用](imgs/type_4.jpg  ':size=250')|![创建应用](imgs/type_1.jpg  ':size=250')|![创建应用](imgs/type_2.jpg  ':size=250')|![创建应用](imgs/type_3.jpg  ':size=250')
+<a href="#/?id=app-download">点击查看下载APP</a>
+
+用户登录|消息列表|消息详情|个人中心
+:--:|:--:|:---:|:---:
+![登录](imgs/login.jpg  ':size=250')|![消息列表](imgs/message-list.jpg  ':size=250')|![消息详情](imgs/message-detail.jpg  ':size=250')|![个人中心](imgs/profile.jpg  ':size=250')
+
 
 # 2种发送方式
 为了方便不同的用户群体，不同的使用场景，更快捷方便的发送消息，我们目前支持了2种使用WxPusher的方式。
@@ -666,7 +671,7 @@ Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览�
 
 
 
-## iOS苹果客户端
+## iOS苹果客户端 :id=app-download
 
 已经支持iPhone手机，支持APNs后台推送，用户体验更佳，支持iOS 14+，下载方式如下：
 - 打开AppStore（苹果应用商店），搜索：WxPusher，下载安装
