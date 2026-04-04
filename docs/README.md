@@ -2,8 +2,8 @@
 
 ## 什么是WxPusher
 
-**WxPusher消息推送平台** 是一套实时消息推送服务：早期以微信公众号为主要触达通道，**当前主推独立 App 接收**（各安卓厂商推送、APNs、WebSocket 长连接等），并支持 **微信 ClawBot（iLink）** 等补充渠道；你可通过 HTTP API 将消息投递到用户已绑定的端上。
-你可以使用**WxPusher**来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
+[**WxPusher消息推送平台**](https://wxpusher.zjiecode.com/) 是一套实时消息推送服务：早期以微信公众号为主要触达通道，**当前主推独立 App 接收**（各安卓厂商推送、APNs、WebSocket 长连接等），并支持 **微信 ClawBot（iLink）** 等补充渠道；你可通过 HTTP API 将消息投递到用户已绑定的端上。
+你可以使用 [**WxPusher**](https://wxpusher.zjiecode.com/) 来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
 
 **为提升到达率与稳定性，建议用户安装 WxPusher App 并按需开启各推送渠道。<a href="#/?id=app-download">查看下载APP</a>**
 
