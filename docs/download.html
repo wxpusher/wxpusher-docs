@@ -4175,7 +4175,8 @@
         //如果是iOS用户在微信里面，就让用户扫码
         if (isIOS() && isWeChat()) {
             document.getElementById('ios-tip').style.display = 'flex';
-        } if (isIOS()) {
+            window.location.href = IOS_URL;
+        } else if (isIOS()) {
             //如果是iOS用户，不在微信里面，直接打开app的下载页面
             window.location.href = IOS_URL;
         } else if (isWeChat()) {
