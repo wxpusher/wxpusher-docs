@@ -1589,8 +1589,11 @@
         }
 
         @keyframes wxp-spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         #market-loading {
             position: fixed;
             left: 0;
@@ -1604,6 +1607,7 @@
             justify-content: center;
             align-items: center;
         }
+
         #market-loading .wxp-spinner {
             width: 48px;
             height: 48px;
@@ -1612,12 +1616,12 @@
             border-radius: 50%;
             animation: wxp-spin 0.8s linear infinite;
         }
+
         #market-loading .wxp-loading-text {
             color: #ffffff;
             margin-top: 16px;
             font-size: 15px;
         }
-
     </style>
     <script>window.pageInitTimestamp = +new Date();</script>
     <title>WxPusher APP下载</title>
@@ -4119,13 +4123,14 @@
         return /iphone|ipad|ipod/i.test(navigator.userAgent);
     }
     var APK_URL = 'https://static.zjiecode.com/apk/wxpusher-app-v1.7.10.apk';
+    var IOS_URL = 'https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603';
     var MARKET_URLS = {
         huawei: 'market://details?id=com.smjcco.wxpusher',
-        honor:  'market://details?id=com.smjcco.wxpusher',
+        honor: 'market://details?id=com.smjcco.wxpusher',
         xiaomi: 'mimarket://details?id=com.smjcco.wxpusher',
-        oppo:   'oppomarket://details?packagename=com.smjcco.wxpusher',
-        vivo:   'vivomarket://details?id=com.smjcco.wxpusher',
-        meizu:  'mstore://details?package_name=com.smjcco.wxpusher'
+        oppo: 'oppomarket://details?packagename=com.smjcco.wxpusher',
+        vivo: 'vivomarket://details?id=com.smjcco.wxpusher',
+        meizu: 'mstore://details?package_name=com.smjcco.wxpusher'
     };
 
     function getAndroidManufacturer() {
@@ -4148,30 +4153,33 @@
         }
         return null;
     }
-    // 立即跳转市场，2秒无响应降级下载APK
+    // 立即跳转市场，2秒后下载apk，避免打开不了应用市场
     function tryMarketThenDownload(marketUrl, apkUrl) {
         var fallbackTimer = setTimeout(function () {
             window.location.href = apkUrl;
         }, 2000);
-        var cancel = function () { clearTimeout(fallbackTimer); };
-        document.addEventListener('visibilitychange', function () {
-            if (document.hidden) cancel();
-        });
-        window.addEventListener('blur', cancel);
-        window.addEventListener('pagehide', cancel);
         window.location.href = marketUrl;
     }
     // 页面加载后静默拉起应用市场，无任何UI变化
     function autoOpenMarket() {
-        if (isIOS() || isWeChat()) return;
-        var manufacturer = getAndroidManufacturer();
-        if (!manufacturer || !MARKET_URLS[manufacturer]) return;
-        window.location.href = MARKET_URLS[manufacturer];
+        if (isWeChat()) return;
+        if (isIOS()) {
+            window.location.href = IOS_URL;
+        } else {
+            var manufacturer = getAndroidManufacturer();
+            if (!manufacturer || !MARKET_URLS[manufacturer]) return;
+            window.location.href = MARKET_URLS[manufacturer];
+        }
     }
     function handleInstallClick() {
-        if (isIOS()) {
+        //如果是iOS用户在微信里面，就让用户扫码
+        if (isIOS() && isWeChat()) {
             document.getElementById('ios-tip').style.display = 'flex';
+        } if (isIOS()) {
+            //如果是iOS用户，不在微信里面，直接打开app的下载页面
+            window.location.href = IOS_URL;
         } else if (isWeChat()) {
+            //其他情况在微信里面，就弹出在浏览器打开的提示
             document.getElementById('wechat-tip').style.display = 'block';
         } else {
             var manufacturer = getAndroidManufacturer();
