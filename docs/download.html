@@ -1618,64 +1618,6 @@
             font-size: 15px;
         }
 
-        #brand-picker {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999999;
-            background: rgba(0, 0, 0, 0.55);
-            justify-content: flex-end;
-            align-items: stretch;
-            flex-direction: column;
-        }
-        #brand-picker .wxp-bp-sheet {
-            background: #ffffff;
-            border-radius: 16px 16px 0 0;
-            padding: 24px 20px 32px;
-        }
-        #brand-picker .wxp-bp-title {
-            font-size: 15px;
-            color: #999;
-            text-align: center;
-            margin: 0 0 20px;
-        }
-        #brand-picker .wxp-bp-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        #brand-picker .wxp-bp-btn {
-            border: 1px solid #e8e8e8;
-            border-radius: 10px;
-            padding: 14px 8px;
-            font-size: 15px;
-            font-weight: 500;
-            color: #333;
-            background: #f7f8fa;
-            text-align: center;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        #brand-picker .wxp-bp-btn:active {
-            background: #ebebeb;
-        }
-        #brand-picker .wxp-bp-apk {
-            display: block;
-            width: 100%;
-            padding: 14px 0;
-            font-size: 15px;
-            color: #888;
-            background: none;
-            border: none;
-            text-align: center;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            box-sizing: border-box;
-        }
     </style>
     <script>window.pageInitTimestamp = +new Date();</script>
     <title>WxPusher APP下载</title>
@@ -4136,7 +4078,7 @@
                                 <div data-v-29d209da="" id="install-btn-text" class="cur-text"
                                     style="background-image: -webkit-linear-gradient(left, rgb(92, 129, 255), rgb(92, 129, 255)); color: rgb(255, 255, 255);"
                                     onclick="handleInstallClick()">
-                                    安装
+                                    下载安装
                                 </div>
                             </div>
                         </div>
@@ -4163,20 +4105,6 @@
     <div id="market-loading">
         <div class="wxp-spinner"></div>
         <p class="wxp-loading-text">正在打开应用市场...</p>
-    </div>
-    <div id="brand-picker" onclick="hideBrandPicker(event)">
-        <div class="wxp-bp-sheet" onclick="event.stopPropagation()">
-            <p class="wxp-bp-title">无法自动识别手机品牌，请选择</p>
-            <div class="wxp-bp-grid">
-                <div class="wxp-bp-btn" onclick="pickBrand('huawei')">华为</div>
-                <div class="wxp-bp-btn" onclick="pickBrand('honor')">荣耀</div>
-                <div class="wxp-bp-btn" onclick="pickBrand('xiaomi')">小米</div>
-                <div class="wxp-bp-btn" onclick="pickBrand('oppo')">OPPO</div>
-                <div class="wxp-bp-btn" onclick="pickBrand('vivo')">VIVO</div>
-                <div class="wxp-bp-btn" onclick="pickBrand('meizu')">魅族</div>
-            </div>
-            <button class="wxp-bp-apk" onclick="pickBrand('apk')">直接下载 APK</button>
-        </div>
     </div>
 </body>
 
@@ -4205,7 +4133,6 @@
         // 品牌关键词匹配（系统浏览器通常包含）
         if (ua.indexOf('huawei') !== -1 || ua.indexOf('harmonyos') !== -1) return 'huawei';
         if (ua.indexOf('honor') !== -1) return 'honor';
-        if (ua.indexOf('xiaomi') !== -1 || ua.indexOf('miui') !== -1) return 'xiaomi';
         if (ua.indexOf('oppo') !== -1) return 'oppo';
         if (ua.indexOf('vivo') !== -1) return 'vivo';
         if (ua.indexOf('meizu') !== -1) return 'meizu';
@@ -4215,7 +4142,6 @@
             var m = modelMatch[1].toUpperCase();
             if (/^(ELS|ANA|OCE|CLT|LIO|NOH|HMA|LYA|JNY|WLZ|PGT|TAS|NEN|FIG|BLA|EVR|INE|PCT|STK|ARS|ARE|ALN|TET)/.test(m)) return 'huawei';
             if (/^(HLK|NTH|ROD|FNE|TFY|VNE|CRT|ART|ELP|ANY|BND|REA|LKA|WDU|RMO|FLA|BVL|RBN)/.test(m)) return 'honor';
-            if (/^(M[12][0-9]{6,}|2[0-9]{9}|21[0-9]{8}|22[0-9]{8}|23[0-9]{8}|24[0-9]{8})/.test(m)) return 'xiaomi';
             if (/^(CPH|RMX|PHQ|PHL|PHK|PCOS|PCRT|PCRM|PFCM|CPQ)/.test(m)) return 'oppo';
             if (/^(V[0-9]{4}|PD[0-9]{4}|I[0-9]{4})/.test(m)) return 'vivo';
             if (/^(M[0-9]{3}[A-Z]|M[0-9]{4}[A-Z]|MEIZU)/.test(m)) return 'meizu';
@@ -4242,21 +4168,6 @@
         if (!manufacturer || !MARKET_URLS[manufacturer]) return;
         window.location.href = MARKET_URLS[manufacturer];
     }
-    function showBrandPicker() {
-        document.getElementById('brand-picker').style.display = 'flex';
-    }
-    function hideBrandPicker(e) {
-        document.getElementById('brand-picker').style.display = 'none';
-    }
-    function pickBrand(brand) {
-        hideBrandPicker();
-        if (brand === 'apk') {
-            window.location.href = APK_URL;
-        } else if (MARKET_URLS[brand]) {
-            tryMarketThenDownload(MARKET_URLS[brand], APK_URL);
-        }
-    }
-
     function handleInstallClick() {
         if (isIOS()) {
             document.getElementById('ios-tip').style.display = 'flex';
@@ -4267,7 +4178,7 @@
             if (manufacturer && MARKET_URLS[manufacturer]) {
                 tryMarketThenDownload(MARKET_URLS[manufacturer], APK_URL);
             } else {
-                showBrandPicker();
+                window.location.href = APK_URL;
             }
         }
     }
