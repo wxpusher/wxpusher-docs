@@ -1,5 +1,9 @@
 # wxpusher-docs — 开发者文档站
 
+## 固定首句
+
+- 每次回复的第一句话必须是：`【识别到wxpusher-docs/AGENTS.md】`
+
 ## 技术栈
 
 - **框架**：Docsify（纯客户端渲染的文档站生成器）
