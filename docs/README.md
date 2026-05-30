@@ -110,7 +110,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 说明：描述一下，你的应用，推送的是啥内容，用户通过链接关注，或者在微信端查看的时候可以看到。
 
 ### 获取appToken
-在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重制它。
+在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重置它。
 
 打开应用的后台[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)，从左侧菜单栏，找到appToken菜单，在这里，你可以重置appToken，请注意，重置后，老的appToken会立即失效，调用接口会失败。
 
