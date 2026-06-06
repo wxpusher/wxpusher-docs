@@ -2,10 +2,10 @@
 
 ## 什么是WxPusher
 
-[**WxPusher消息推送平台**](https://wxpusher.zjiecode.com/) 是一套实时消息推送服务：早期以微信公众号为主要触达通道，**当前主推独立 App 接收**（各安卓厂商推送、APNs、WebSocket 长连接等），并支持 **微信 ClawBot（iLink）** 等补充渠道；你可通过 HTTP API 将消息投递到用户已绑定的端上。
+[**WxPusher消息推送平台**](https://wxpusher.zjiecode.com/) 是四川思明今创科技有限公司旗下的一套实时消息推送服务平台：早期以微信公众号为主要触达通道，**当前主推独立全平台客户端接收**（各安卓厂商推送、iOS APNs、鸿蒙 Push Kit、桌面端 WebSocket 长连接等），并支持 **微信 ClawBot（iLink）** 等补充渠道；你可通过 HTTP API 将消息投递到用户已绑定的端上。
 你可以使用 [**WxPusher**](https://wxpusher.zjiecode.com/) 来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
 
-**为提升到达率与稳定性，建议用户安装 WxPusher App 并按需开启各推送渠道。<a href="#/?id=app-download">查看下载APP</a>**
+**WxPusher 提供覆盖 Android（各厂商）、iOS、鸿蒙、macOS、Windows、Linux 的全平台客户端，手机和电脑都能实时收消息，且<font color="red">客户端全部开源、可自由审计</font>。** 为提升到达率与稳定性，建议用户安装 WxPusher 客户端并按需开启各推送渠道。<a href="#/?id=app-download">查看下载APP</a>
 
 ## demo演示程序
  
@@ -29,6 +29,109 @@
 微信内收到推送的预览 | 渠道激活方式
 :--:|:--:
 ![微信 ClawBot 消息预览](imgs/ilink-preview.png  ':size=280') | ![微信 ClawBot 激活方式](imgs/ilink-active.png  ':size=280')
+
+
+
+
+# 消息接收通道
+
+为了追求更好的用户体验，WxPusher 打造了**覆盖手机与电脑的全平台客户端**：手机端支持 **Android（各厂商）、iOS、鸿蒙**，电脑端支持 **macOS、Windows、Linux**，全平台都能实时接收消息，而且<font color="red">客户端全部开源、可自由审计</font>。
+
+## 全平台下载 :id=app-download
+
+各端形态、推送方式与开源情况一览：
+
+| 平台 | 形态 | 推送方式 | 是否开源 |
+| :--- | :--- | :--- | :--- |
+| Android（小米/华为/荣耀/OPPO/VIVO/魅族等） | 手机 App | 各厂商系统推送，后台免保活 | ✅ 开源 |
+| iOS | 手机 App | APNs 苹果系统推送 | ✅ 开源 |
+| 鸿蒙 HarmonyOS Next | 手机 App | Push Kit 系统级推送，后台免保活 | ✅ 开源 |
+| macOS | 桌面客户端 | WebSocket 长连接 + 系统通知 | ✅ 开源 |
+| Windows | 桌面客户端 | WebSocket 长连接 + 系统通知 | ✅ 开源 |
+| Linux | 桌面客户端 | WebSocket 长连接 + 系统通知 | ✅ 开源 |
+
+**统一下载入口（手机 + 电脑全平台）：[https://wxpusher.zjiecode.com/download/](https://wxpusher.zjiecode.com/download/)**
+
+- 扫码下面二维码下载
+
+>![扫码下载客户端](imgs/app-download-qrcode.png  ':size=100')
+
+## iOS苹果客户端
+
+已经支持iPhone手机，支持APNs后台推送，用户体验更佳，支持iOS 14+，下载方式如下：
+- 打开AppStore（苹果应用商店），搜索：WxPusher，下载安装
+- [点击这里的链接](https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603)，直接打开并下载应用
+
+![iOS客户端](imgs/ios-list.jpg  ':size=500')
+
+## Android客户端
+
+### 应用下载
+目前Android客户端已经适配国内主要厂商，支持厂商后台推送，无须保持后台运行也可以接收消息。
+- 下载链接
+[https://wxpusher.zjiecode.com/download/](https://wxpusher.zjiecode.com/download/)
+
+- 扫码下面二维码下载
+
+>![Android客户端](imgs/app-download-qrcode.png  ':size=100')
+
+### 当前厂商适配情况
+
+各大应用市场搜索【WxPusher】或者 【WxPusher消息推送平台】 可以下载
+
+| 品牌\市场 | 后台推送支持情况 | 应用市场上架 |
+| :--- | :--- | :--- |
+| 小米 | ✅ 完全支持后台接收消息 | ✅是 |
+| 华为 | ✅ 完全支持后台接收消息 | ✅是 |
+| 苹果 | ✅ 完全支持后台接收消息 | ✅是 |
+| 荣耀 | ✅ 完全支持后台接收消息 | ✅是 |
+| OPPO | ✅ 完全支持后台接收消息 | ✅是 |
+| VIVO | ✅ 完全支持后台接收消息 | ✅是 |
+| 魅族 | ✅ 完全支持后台接收消息 | ✅是 |
+| 其他安卓手机 | ⚠️ 已实现后台保活接收消息 | - |
+| 应用宝 | - | ✅是 |
+
+## 鸿蒙客户端（HarmonyOS Next）
+
+面向 **HarmonyOS Next（纯鸿蒙）** 的原生客户端，使用 ArkTS + ArkUI 开发，与 Android / iOS 功能对齐。
+
+- **系统级推送**：直接对接鸿蒙 **Push Kit**，无需后台保活即可接收消息，体验更佳；
+- **下载方式**：在华为应用市场（AppGallery）搜索「WxPusher消息推送平台」，或前往[下载页](https://wxpusher.zjiecode.com/download/)；
+- **开源仓库**：<a href="https://github.com/wxpusher/wxpusher_app_harmoney" target="_blank">https://github.com/wxpusher/wxpusher_app_harmoney</a>
+
+## 桌面客户端（macOS / Windows / Linux）
+
+面向电脑用户的桌面客户端，基于 Electron + React 构建，**macOS、Windows、Linux 三大系统全覆盖**，开着电脑就能实时收消息，体验稳定完整。
+
+- **实时推送**：主进程维护 WebSocket 长连接接收消息，并以系统通知提醒；
+- **完整能力**：扫码登录、消息列表 / 搜索 / 已读 / 批量删除、消息详情、桌面托盘后台驻留、开机自启、自动更新；
+- **下载方式**：前往[下载页](https://wxpusher.zjiecode.com/download/)，提供 苹果电脑（Apple 芯片 / Intel）dmg、Windows exe、Linux deb / rpm 安装包；
+- **开源仓库**：<a href="https://github.com/wxpusher/wxpusher-desktop" target="_blank">https://github.com/wxpusher/wxpusher-desktop</a>
+
+## 微信 ClawBot（iLink）推送渠道
+
+除 App 内各厂商推送、APNs、WebSocket 长连接等通道外，WxPusher 还支持通过 **微信ClawBot**（微信龙虾渠道）向已绑定用户发送文本通知。
+>目前仅支持发送消息，暂不支持上行消息。
+
+- **使用方式**：用户在 **WxPusher App** 内按引导完成微信 ClawBot（iLink）绑定（在我的-推送渠道-绑定微信ClawBot，可以参考<a target="__black" href="https://mp.weixin.qq.com/s/lYVNMLRtTNNjKKD7NLZxiA">微信 ClawBot（iLink）绑定说明</a>）。
+- **与 API 的关系**：开发者侧仍使用既有的发送接口；是否走 iLink 由用户是否在 App 中绑定并启用该渠道决定，**不改变 appToken / UID / SPT / 主题等标准推送模型**。
+- **渠道侧限制（重要）**：用户每在微信侧 **激活** 该渠道后，**24 小时内通过该通道最多接收 10 条推送**；用尽后需用户向 ClawBot **回复任意内容** 再次激活，方可继续通过该通道接收；渠道即将失效时，用户可能在 App 或微信侧收到激活提醒。
+- **说明**：上述条数与时效来自微信平台 iLink 能力与 WxPusher 投递策略，与下文「单次请求的 UID 数量、全站发送 QPS」等**接口级限制相互独立**。
+
+微信内收到推送的预览 | 渠道激活方式（示意）
+:--:|:--:
+![微信 ClawBot 消息预览](imgs/ilink-preview.png  ':size=280') | ![微信 ClawBot 激活方式](imgs/ilink-active.png  ':size=280')
+
+## 客户端开源
+
+WxPusher 各端客户端均已开源，欢迎查看、审计源码，也欢迎提交 PR 参与共建：
+
+- **Android / iOS 客户端**：<a href="https://github.com/wxpusher/wxpusher-app" target="_blank">https://github.com/wxpusher/wxpusher-app</a>
+- **鸿蒙客户端（HarmonyOS Next）**：<a href="https://github.com/wxpusher/wxpusher_app_harmoney" target="_blank">https://github.com/wxpusher/wxpusher_app_harmoney</a>
+- **桌面客户端（macOS / Windows / Linux）**：<a href="https://github.com/wxpusher/wxpusher-desktop" target="_blank">https://github.com/wxpusher/wxpusher-desktop</a>
+
+各端均采用「四川思明今创科技有限公司客户端开源协议」，可自由查看和审计全部源代码，具体条款以各仓库的 LICENSE 为准。
+
 
 
 # 2种发送方式
@@ -110,7 +213,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 说明：描述一下，你的应用，推送的是啥内容，用户通过链接关注，或者在微信端查看的时候可以看到。
 
 ### 获取appToken
-在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重制它。
+在你创建应用的过程中，你应该已经看到appToken，如果没有保存，可以通过下面的方式重置它。
 
 打开应用的后台[https://wxpusher.zjiecode.com/admin/](https://wxpusher.zjiecode.com/admin/)，从左侧菜单栏，找到appToken菜单，在这里，你可以重置appToken，请注意，重置后，老的appToken会立即失效，调用接口会失败。
 
@@ -656,74 +759,6 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 3. 如果你是新接入，你可以先联系微信客服wxpusher-kefu，确定可以上架，再进行开发，避免浪费时间；
 4. 提交后，为了尽快审核，你可以主动联系微信客服wxpusher-kefu沟通；
 5. 上架后，请持续服务，连续3天不推送消息，系统会发消息提醒你，连续6天不提送消息，系统自动下架产品。
-
-
-# 消息接收通道
-
-为了更好的用户体验，我们正在努力开发更多的客户端，以提高用户的体验。
-
-
-## iOS苹果客户端 :id=app-download
-
-已经支持iPhone手机，支持APNs后台推送，用户体验更佳，支持iOS 14+，下载方式如下：
-- 打开AppStore（苹果应用商店），搜索：WxPusher，下载安装
-- [点击这里的链接](https://apps.apple.com/cn/app/wxpusher%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E5%B9%B3%E5%8F%B0/id6444387603)，直接打开并下载应用
-
-![iOS客户端](imgs/ios-list.jpg  ':size=500')
-
-## Android客户端
-
-### 应用下载
-目前Android客户端已经适配国内主要厂商，支持厂商后台推送，无须保持后台运行也可以接收消息。
-- 下载链接
-[https://wxpusher.zjiecode.com/docs/download.html](https://wxpusher.zjiecode.com/docs/download.html)
-
-- 扫码下面二维码下载
-
->![Android客户端](imgs/android-download.png  ':size=100')
-
-### 当前厂商适配情况
-
-各大应用市场搜索【WxPusher】或者 【WxPusher消息推送平台】 可以下载
-
-| 品牌\市场 | 后台推送支持情况 | 应用市场上架 |
-| :--- | :--- | :--- |
-| 小米 | ✅ 完全支持后台接收消息 | ✅是 |
-| 华为 | ✅ 完全支持后台接收消息 | ✅是 |
-| 苹果 | ✅ 完全支持后台接收消息 | ✅是 |
-| 荣耀 | ✅ 完全支持后台接收消息 | ✅是 |
-| OPPO | ✅ 完全支持后台接收消息 | ✅是 |
-| VIVO | ✅ 完全支持后台接收消息 | ✅是 |
-| 魅族 | ✅ 完全支持后台接收消息 | ✅是 |
-| 其他安卓手机 | ⚠️ 已实现后台保活接收消息 | - |
-| 应用宝 | - | ✅是 |
-
-## 微信 ClawBot（iLink）推送渠道
-
-除 App 内各厂商推送、APNs、WebSocket 长连接等通道外，WxPusher 还支持通过 **微信ClawBot**（微信龙虾渠道）向已绑定用户发送文本通知。
->目前仅支持发送消息，暂不支持上行消息。
-
-- **使用方式**：用户在 **WxPusher App** 内按引导完成微信 ClawBot（iLink）绑定（在我的-推送渠道-绑定微信ClawBot，可以参考<a target="__black" href="https://mp.weixin.qq.com/s/lYVNMLRtTNNjKKD7NLZxiA">微信 ClawBot（iLink）绑定说明</a>）。
-- **与 API 的关系**：开发者侧仍使用既有的发送接口；是否走 iLink 由用户是否在 App 中绑定并启用该渠道决定，**不改变 appToken / UID / SPT / 主题等标准推送模型**。
-- **渠道侧限制（重要）**：用户每在微信侧 **激活** 该渠道后，**24 小时内通过该通道最多接收 10 条推送**；用尽后需用户向 ClawBot **回复任意内容** 再次激活，方可继续通过该通道接收；渠道即将失效时，用户可能在 App 或微信侧收到激活提醒。
-- **说明**：上述条数与时效来自微信平台 iLink 能力与 WxPusher 投递策略，与下文「单次请求的 UID 数量、全站发送 QPS」等**接口级限制相互独立**。
-
-微信内收到推送的预览 | 渠道激活方式（示意）
-:--:|:--:
-![微信 ClawBot 消息预览](imgs/ilink-preview.png  ':size=280') | ![微信 ClawBot 激活方式](imgs/ilink-active.png  ':size=280')
-
-## Chrome扩展
-Chrome扩展是一个基于Chrome浏览器的扩展程序，只要开着浏览器，就可以接收消息，目前支持Mac、Window电脑，接收消息的体验比微信更好，欢迎体验使用。
-如果你能访问谷歌，你可以直接访问<a href="https://chromewebstore.google.com/detail/wxpusher/hjjmlbnpgnnnnkfbnajpmbakkjobgmjd?authuser=0&hl=zh-CN">谷歌插件商店安装 </a>
-
-你也可以访问这里<a href="https://github.com/wxpusher/wxpusher-chrome-extensions">https://github.com/wxpusher/wxpusher-chrome-extensions</a>下载和安装浏览器插件。
-
-你也可以访问这里，查看具体的安装使用方式：https://mp.weixin.qq.com/s/zrUdVqrE0odhUTiD7qhWiQ
-
-- 目前浏览器插件消息会在服务器缓存24小时，浏览器关闭以后，24小时以内上线，会重新把消息发送给你，如果超过24小时，消息会被丢弃；
-- Chrome扩展是微信公众号的拓展，绑定Chrome扩展以后，Chrome和微信公众号会同时收到消息；
-- Window用户，请在window设置-通知，把对应浏览器的通知权限打开，否则可能没有消息提醒
-- Mac用户，请在设置-通知与专注模式-Chrome，允许通知，否则可能没有消息提醒
 
 
 # 限制说明 :id=limit
