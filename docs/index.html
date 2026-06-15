@@ -63,6 +63,16 @@
     window.$docsify = {
       name: 'WxPusher消息推送平台',
       nameLink: 'https://wxpusher.zjiecode.com/',
+      plugins: [
+        function (hook) {
+          var footer = '<hr/><footer style="text-align:center;padding:16px 0;color:#888;font-size:13px;">' +
+            '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" style="color:#888;">蜀ICP备14025423号-1</a>' +
+            '</footer>';
+          hook.afterEach(function (html) {
+            return html + footer;
+          });
+        },
+      ],
     }
   </script>
   <script src="js/docsify.min.js"></script>
