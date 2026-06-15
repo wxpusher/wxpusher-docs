@@ -2,6 +2,11 @@
 
 <head>
     <meta charset="utf-8">
+    <!-- 下载入口已统一收口到 /download/，旧地址即时跳转；若跳转失败，下方原页面兜底可用 -->
+    <link rel="canonical" href="https://wxpusher.zjiecode.com/download/">
+    <script>
+        window.location.replace('/download/' + window.location.search + window.location.hash);
+    </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="format-detection" content="telephone=no,email=no">
     <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
