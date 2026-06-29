@@ -66,7 +66,8 @@
       plugins: [
         function (hook) {
           var footer = '<hr/><footer style="text-align:center;padding:16px 0;color:#888;font-size:13px;">' +
-            '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" style="color:#888;">蜀ICP备14025423号-1</a>' +
+            '<a href="https://beian.mps.gov.cn/#/query/webSearch?code=51019002009801" rel="noreferrer" target="_blank" style="color:#888;display:inline-flex;align-items:center;gap:4px;margin-right:18px;vertical-align:middle;"><img src="/imgs/wxpusher-gongan-beian.png" alt="公安备案" style="width:14px;height:16px;">川公网安备51019002009801号</a>' +
+            '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" style="color:#888;vertical-align:middle;">蜀ICP备14025423号-1</a>' +
             '</footer>';
           hook.afterEach(function (html) {
             return html + footer;
