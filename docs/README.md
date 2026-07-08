@@ -770,6 +770,14 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 
 如果你略懂技术，推荐优先使用<a href="#/?id=standard">方式一：标准推送</a>接入，能够使用应用、UID、主题和回调等更完整的能力；青龙面板同样支持标准推送配置。
 
+## MoviePilot
+
+MoviePilot（NAS 媒体库自动化管理工具）可以通过 WxPusher 插件，把下载、入库、订阅、系统告警等通知推送到手机和电脑。
+
+如果你只想尽快收到通知，可以参考：[MoviePilot 使用 WxPusher 推送通知教程](moviepilot-wxpusher-spt.md)，在插件市场安装「WxPusher消息通知」，扫码获取 SPT 后填入即可。
+
+如果需要给多人群发，也可以在插件里切换为<a href="#/?id=standard">方式一：标准推送</a>，使用应用、UID、主题等更完整的能力。
+
 
 # 限制说明 :id=limit
 WxPusher是免费的推送服务，为了能更好的服务大家，这里说明一下系统相关数据限制
