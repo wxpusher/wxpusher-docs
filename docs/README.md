@@ -665,6 +665,66 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 }
 ```
 
+# 跳转签名验证 :id=setting-url-sign
+
+在管理后台「应用信息 → 业务设置地址」中，你可以配置一个 `settingUrl`。用户在 WxPusher App 的「订阅详情」页可以跳转到这个地址，进入你的第三方系统做业务设置。跳转时链接会自动携带当前用户的 `uid`。
+
+为了让你的系统能够**验证请求来源真实、并防止链接被伪造和重放**，你可以在管理后台「应用管理 → 验证密钥」中配置一个只有你知道的`验证密钥`。配置后，WxPusher 会用该密钥对跳转参数做 HMAC-SHA256 签名。
+
+> 若不配置 `验证密钥`，跳转链接只携带明文 `uid`、不带签名（兼容旧行为）。
+
+## 跳转链接携带的参数
+
+| 参数 | 说明 |
+|------|------|
+| `uid` | 用户 uid，由服务端按登录态解析下发，客户端无法伪造 |
+| `ts` | 毫秒时间戳 |
+| `nonce` | 随机字符串 |
+| `sv` | 签名版本号，当前固定为 `1` |
+| `sign` | HMAC-SHA256 签名，十六进制小写 |
+
+例如：`https://your.site/setting?uid=UID_xxx&ts=1731000000000&nonce=abc123...&sv=1&sign=9f8e...`
+
+## 验签步骤（第三方系统）
+1. 校验 `ts`：`abs(当前毫秒时间 - ts) <= 10 分钟`，超出则拒绝（防止旧链接被重复使用）。
+2. 在有效期内缓存并校验 `nonce` 是否重复出现，重复则拒绝（防重放）。
+3. 取除 `sign` 外的全部签名参数（`uid`、`ts`、`nonce`、`sv`）。
+4. 按参数名（key）升序排序，拼成 `k1=v1&k2=v2&...` 的字符串（不含末尾 `&`），记为 `canonical`。
+5. `sign = HMAC_SHA256(canonical, 你后台配置的验证密钥)`，输出为十六进制小写字符串。
+6. 用你计算的 `sign`与链接里的 `sign` 比对，一致表示可信，否则就是伪造的。
+
+## 各语言示例
+
+**Java**
+
+```java
+String canonical = "nonce=" + nonce + "&sv=" + sv + "&ts=" + ts + "&uid=" + uid; // 注意按 key 升序
+Mac mac = Mac.getInstance("HmacSHA256");
+mac.init(new SecretKeySpec(settingSignKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
+byte[] bytes = mac.doFinal(canonical.getBytes(StandardCharsets.UTF_8));
+StringBuilder sb = new StringBuilder();
+for (byte b : bytes) sb.append(String.format("%02x", b));
+String sign = sb.toString();
+```
+
+**Node.js**
+
+```javascript
+const crypto = require('crypto');
+// 参数按 key 升序拼接，排除 sign
+const canonical = `nonce=${nonce}&sv=${sv}&ts=${ts}&uid=${uid}`;
+const sign = crypto.createHmac('sha256', settingSignKey).update(canonical).digest('hex');
+```
+
+**Python**
+
+```python
+import hmac, hashlib
+# 参数按 key 升序拼接，排除 sign
+canonical = f"nonce={nonce}&sv={sv}&ts={ts}&uid={uid}"
+sign = hmac.new(settingSignKey.encode(), canonical.encode(), hashlib.sha256).hexdigest()
+```
+
 # 消息产品收费
 
 > 请注意：只有方式一（标准推送）才支持消息产品收费
