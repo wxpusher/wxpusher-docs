@@ -16,7 +16,7 @@ targetFile=dist.tar.gz
 
 echo "打包产物"
 
-tar -zcf  ${targetFile} -C docs .    
+tar --no-xattrs --no-mac-metadata -zcf  ${targetFile} -C docs .    
 
 echo "上传"
 
