@@ -31,7 +31,7 @@ MoviePilot 在运行过程中会产生大量通知（下载、入库、订阅、
 - **一键测试**：配置后可直接发送一条测试消息验证；
 - **轻量无侵入**：只监听通知事件转发，不改 MoviePilot 核心，无额外第三方依赖。
 
-WxPusher 支持 Android、iOS、鸿蒙、macOS、Windows、Linux 等客户端：手机端可以走厂商推送、APNs、鸿蒙 Push Kit，桌面端可以通过长连接接收系统通知。对 MoviePilot 这种「服务跑在 NAS 上、结果要及时看到」的场景，手机和电脑都能收消息会舒服很多。而且 WxPusher 永久免费，单用户 2000 条/天，个人使用完全够用。
+WxPusher 支持 Android、iOS、鸿蒙、macOS、Windows、Linux 等客户端：手机端可以走厂商推送、APNs、鸿蒙 Push Kit，桌面端可以通过长连接接收系统通知。对 MoviePilot 这种「服务跑在 NAS 上、结果要及时看到」的场景，手机和电脑都能收消息会舒服很多。WxPusher 提供永久免费的基础推送服务，发送频率、单次接收人数和设备每日提醒等规则可能随线上策略调整，请以[官方限制说明](https://wxpusher.zjiecode.com/docs/#/?id=limit)为准。
 
 ## 三、获取你的 SPT
 

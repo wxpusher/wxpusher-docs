@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- SEO/GEO 主要落地页：消息推送 API、发送消息、UID 单发与 Topic 群发。 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WxPusher 发送消息 API | UID 单发、Topic 群发与回调</title>
+  <meta name="description" content="使用 WxPusher HTTP 消息推送 API 发送消息：通过 appToken 鉴权，支持 UID 单发、Topic 群发、微信与多端消息触达、文本、HTML、Markdown、状态查询和 Webhook 回调。">
+  <meta name="keywords" content="WxPusher API,消息推送API,发送消息,HTTP推送,Webhook通知,微信消息推送,群发消息,UID,Topic,appToken,服务器告警">
+  <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://wxpusher.zjiecode.com/docs/api-reference.html">
+  <meta property="og:type" content="article"><meta property="og:title" content="WxPusher 发送消息 API"><meta property="og:description" content="使用 appToken、UID 和 Topic 发送消息，实现单发、群发、回调和多端实时触达。"><meta property="og:url" content="https://wxpusher.zjiecode.com/docs/api-reference.html"><meta property="og:image" content="https://wxpusher.zjiecode.com/imgs/logo512.png">
+  <link rel="stylesheet" href="seo-page.css"><link rel="icon" href="/favicon.ico">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WxPusher 标准消息推送 API","description":"使用 appToken、UID 和 Topic 接入 WxPusher 实时消息推送。","url":"https://wxpusher.zjiecode.com/docs/api-reference.html","image":"https://wxpusher.zjiecode.com/docs/imgs/structure.png","dateModified":"2026-07-11","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
+</head>
+<body>
+<header><nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a><div class="nav-links"><a href="/docs/">完整文档</a><a href="spt.html">极简推送</a><a href="/admin/">管理后台</a></div></nav></header>
+<main class="page"><article>
+  <h1>WxPusher 标准消息推送 API</h1>
+  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-07-11 · <a href="openapi.yaml">下载 OpenAPI 规范</a></p>
+  <p class="lede">标准推送适合把 WxPusher 集成进业务系统：应用用 <strong>appToken</strong> 鉴权，通过 <strong>UID</strong> 给用户单发，或通过 <strong>Topic</strong> 向订阅者群发。</p>
+  <div class="callout"><strong>最快接入路径：</strong>登录管理后台创建应用 → 获取 appToken → 让用户关注并取得 UID → 调用发送接口。appToken 属于密钥，不要提交到公开仓库。</div>
+  <h2>发送消息</h2>
+  <p><code>POST https://wxpusher.zjiecode.com/api/send/message</code>，请求类型为 <code>application/json</code>。</p>
+  <pre><code>curl -X POST https://wxpusher.zjiecode.com/api/send/message \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appToken": "AT_xxx",
+    "content": "服务器 CPU 使用率超过 90%",
+    "summary": "服务器告警",
+    "contentType": 1,
+    "uids": ["UID_xxx"]
+  }'</code></pre>
+  <h2>核心字段</h2>
+  <table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody>
+    <tr><td><code>appToken</code></td><td>应用鉴权密钥，必填。</td></tr><tr><td><code>content</code></td><td>消息正文，必填。</td></tr><tr><td><code>contentType</code></td><td>1 文本、2 HTML、3 Markdown。</td></tr><tr><td><code>uids</code></td><td>接收用户 UID 数组，用于单发或批量发送。</td></tr><tr><td><code>topicIds</code></td><td>主题 ID 数组，用于向主题订阅者群发；可与 uids 同时使用。</td></tr><tr><td><code>summary</code></td><td>通知摘要，可选，最长 100 字符。</td></tr><tr><td><code>url</code></td><td>消息原文链接，可选。</td></tr>
+  </tbody></table>
+  <h2>返回结果与后续操作</h2>
+  <p>业务响应码 <code>1000</code> 表示成功。返回的 <code>sendRecordId</code> 可用于查询单个接收目标的发送状态；<code>messageContentId</code> 可用于删除消息落地页内容。消息为异步分发，接口成功表示发送任务已创建。</p>
+  <h2>标准推送适用场景</h2>
+  <div class="cards"><section class="card"><h3>服务器与运维告警</h3><p>监控系统通过 UID 通知值班人员，或通过 Topic 通知团队。</p></section><section class="card"><h3>业务事件通知</h3><p>发送订单状态、任务结果、审核进度和信息更新提醒。</p></section></div>
+  <h2>限制与权威文档</h2>
+  <p>当前文档列出的主要限制包括：正文最长 40000 字符、单次最多 2000 个 UID 或 5 个 Topic，默认接口限流约 2 QPS。线上策略可能调整，请查看<a href="/docs/#/?id=limit">完整限制说明</a>和<a href="/docs/#/?id=send-msg">完整请求与响应字段</a>。用户关注、付费状态和上行消息等业务事件由 WxPusher 向应用配置的回调地址发起 HTTP 请求，具体字段以<a href="/docs/#/?id=callback">回调说明</a>为准。</p>
+</article></main><footer><div class="page">WxPusher 官方开发文档 · <a href="https://github.com/wxpusher">开源客户端</a></div></footer>
+</body></html>

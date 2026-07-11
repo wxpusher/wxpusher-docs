@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WxPusher 开发文档 | 消息推送 API 与接入指南</title>
+  <title>WxPusher 开发文档 | 消息推送 API、发送消息与多端触达</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="WxPusher消息推送平台 是一个使用微信公众号作为通道的，实时信息推送平台，你可以通过调用API的方式，把信息推送到微信上，无需安装额外的软件，即可做到信息实时通知。 你可以使用WxPusher来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。">
-  <meta name="keywords" content="WxPusher,消息推送,开发文档,API,微信公众号推送,实时通知,服务器报警">
+  <meta name="description" content="WxPusher 官方开发文档：通过 HTTP API 发送消息，接入微信消息推送、手机 Push 通知和电脑通知；涵盖 SPT、appToken、UID、Topic 群发、Webhook 回调、状态查询与多端触达。">
+  <meta name="keywords" content="WxPusher,消息推送API,发送消息,微信消息推送,微信通知,推送助手,HTTP推送,Webhook通知,多端触达,群发消息,极简推送,SPT,appToken,UID,Topic,服务器告警">
   <meta name="author" content="WxPusher">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph -->
   <meta property="og:title" content="WxPusher 开发文档 | 消息推送 API 与接入指南">
-  <meta property="og:description" content="WxPusher消息推送平台：通过 API 将消息推送到微信，适用于服务器报警、抢课抢票、信息更新等场景。">
-  <meta property="og:type" content="website">
+  <meta property="og:description" content="通过 WxPusher API 发送消息，实现微信、手机和电脑通知，支持 UID 单发、Topic 群发、SPT 与 Webhook 回调。">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://wxpusher.zjiecode.com/docs/">
   <meta property="og:site_name" content="WxPusher">
   <meta property="og:locale" content="zh_CN">
@@ -25,7 +25,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="WxPusher 开发文档 | 消息推送 API 与接入指南">
-  <meta name="twitter:description" content="WxPusher消息推送平台：通过 API 将消息推送到微信，适用于服务器报警、抢课抢票、信息更新等场景。">
+  <meta name="twitter:description" content="WxPusher 消息推送 API、发送消息、群发通知、Webhook 回调与多端触达接入指南。">
   <meta name="twitter:image" content="https://wxpusher.zjiecode.com/imgs/logo512.png">
   <meta name="twitter:image:alt" content="WxPusher Logo">
 
@@ -44,11 +44,19 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
+    "@type": "TechArticle",
     "name": "WxPusher 开发文档",
-    "description": "WxPusher 消息推送平台 API 说明与接入指南。",
+    "headline": "WxPusher 消息推送 API 与接入指南",
+    "description": "通过 WxPusher HTTP API 发送消息，实现微信消息推送、手机 Push、桌面通知、UID 单发、Topic 群发和 Webhook 回调。",
     "url": "https://wxpusher.zjiecode.com/docs/",
+    "image": "https://wxpusher.zjiecode.com/docs/imgs/structure.png",
     "inLanguage": "zh-CN",
+    "dateModified": "2026-07-11",
+    "isAccessibleForFree": true,
+    "author": {
+      "@type": "Organization",
+      "name": "WxPusher"
+    },
     "publisher": {
       "@type": "Organization",
       "name": "WxPusher",
@@ -58,11 +66,31 @@
   </script>
 </head>
 <body>
-  <div id="app">加载中</div>
+  <div id="app">
+    <main style="max-width:900px;margin:0 auto;padding:40px 24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.75;color:#24292f;">
+      <h1>WxPusher 消息推送 API 与接入指南</h1>
+      <p>由 WxPusher 维护 · 最后更新：2026-07-11</p>
+      <p>WxPusher 是永久免费的实时消息推送服务。开发者可通过 HTTP API 把服务器告警、定时任务结果、CI/CD 状态和业务通知发送到 Android、iOS、HarmonyOS、macOS、Windows、Linux 或微信 ClawBot。</p>
+      <h2>选择接入方式</h2>
+      <ul>
+        <li><a href="api-reference.html">标准推送 API</a>：使用 appToken，通过 UID 单发或 Topic 群发；适合业务系统，支持用户管理、回调和状态查询。</li>
+        <li><a href="spt.html">极简推送 SPT</a>：无需创建应用，扫码获取 SPT 后即可发送；适合个人脚本给自己发送通知。</li>
+      </ul>
+      <h2>常用资源</h2>
+      <p><a href="openapi.yaml">OpenAPI 规范</a> · <a href="integrations.html">青龙面板与 MoviePilot 集成</a> · <a href="https://wxpusher.zjiecode.com/admin/">创建标准推送应用</a> · <a href="https://wxpusher.zjiecode.com/download/">下载全平台客户端</a> · <a href="https://github.com/wxpusher">查看开源客户端</a></p>
+      <h2>标准推送快速示例</h2>
+      <pre><code>curl -X POST https://wxpusher.zjiecode.com/api/send/message \
+  -H 'Content-Type: application/json' \
+  -d '{"appToken":"AT_xxx","content":"服务器告警","contentType":1,"uids":["UID_xxx"]}'</code></pre>
+      <p>完整字段、返回结构、限流和当前平台行为请以本页加载后的官方文档正文为准。</p>
+    </main>
+  </div>
   <script>
     window.$docsify = {
       name: 'WxPusher消息推送平台',
       nameLink: 'https://wxpusher.zjiecode.com/',
+      homepage: 'README.md',
+      repo: 'https://github.com/wxpusher',
       plugins: [
         function (hook) {
           var footer = '<hr/><footer style="text-align:center;padding:16px 0;color:#888;font-size:13px;">' +
@@ -78,8 +106,8 @@
   </script>
   <script src="js/docsify.min.js"></script>
   <script src="js/zoom-image.min.js"></script>
-</body>
-</html>
 <script>
 !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JNijCUM2VjlEMzbj",ck:"JNijCUM2VjlEMzbj"});
 </script>
+</body>
+</html>

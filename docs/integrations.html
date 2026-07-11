@@ -1,0 +1,82 @@
+<!doctype html>
+<!-- SEO/GEO 主要落地页：Webhook、青龙、MoviePilot、NAS 与自动化消息通知。 -->
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WxPusher 集成教程 | 青龙面板、MoviePilot 与自动化通知</title>
+  <meta name="description"
+    content="WxPusher 自动化消息推送集成：通过 HTTP API 或 Webhook 发送青龙面板定时任务、MoviePilot、服务器告警与 NAS 通知，实时触达到微信、手机和电脑。">
+  <meta name="keywords" content="自动化消息推送,Webhook通知,青龙面板通知,MoviePilot通知,NAS通知,服务器告警,定时任务通知,微信消息推送,多端触达">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://wxpusher.zjiecode.com/docs/integrations.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="WxPusher 自动化消息推送集成">
+  <meta property="og:description" content="通过 API 或 Webhook 将青龙面板、MoviePilot、服务器与 NAS 通知触达到微信、手机和电脑。">
+  <meta property="og:url" content="https://wxpusher.zjiecode.com/docs/integrations.html">
+  <meta property="og:image" content="https://wxpusher.zjiecode.com/imgs/logo512.png">
+  <link rel="stylesheet" href="seo-page.css">
+  <link rel="icon" href="/favicon.ico">
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WxPusher 第三方系统与自动化消息推送集成","description":"青龙面板、MoviePilot、服务器、NAS 和自动化脚本的消息推送接入指南。","url":"https://wxpusher.zjiecode.com/docs/integrations.html","image":"https://wxpusher.zjiecode.com/docs/imgs/moviepilot-wxpusher-spt-setting.png","dateModified":"2026-07-11","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
+</head>
+
+<body>
+  <header>
+    <nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a>
+      <div class="nav-links"><a href="/docs/">完整文档</a><a href="api-reference.html">标准推送</a><a href="spt.html">极简推送</a>
+      </div>
+    </nav>
+  </header>
+  <main class="page">
+    <article>
+      <h1>WxPusher 第三方系统集成</h1>
+      <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-07-11</p>
+      <p class="lede">把定时任务、下载入库、备份、监控和自动化事件推送到 WxPusher 的手机与电脑客户端。</p>
+      <div class="cards">
+        <section class="card">
+          <h2>青龙面板</h2>
+          <p>接收定时脚本执行结果与失败告警。个人使用可配置 SPT；需要应用、用户和主题管理时使用标准推送。</p>
+          <p><a href="qinglong-wxpusher-spt.html">查看青龙面板完整配置教程</a></p>
+        </section>
+        <section class="card">
+          <h2>MoviePilot</h2>
+          <p>通过「WxPusher消息通知」插件接收下载、入库、订阅与系统告警，支持 SPT 和标准推送。</p>
+          <p><a href="moviepilot-wxpusher-spt.html">查看 MoviePilot 完整配置教程</a></p>
+        </section>
+      </div>
+      <h2>如何选择推送模式</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>需求</th>
+            <th>建议</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>个人系统只通知自己</td>
+            <td><a href="spt.html">极简推送 SPT</a></td>
+          </tr>
+          <tr>
+            <td>多人接收、用户管理或 Topic 群发</td>
+            <td><a href="api-reference.html">标准推送</a></td>
+          </tr>
+          <tr>
+            <td>需要关注、付费状态或上行消息回调</td>
+            <td>标准推送</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>其他自动化系统</h2>
+      <p>任何能发送 HTTP 请求的监控平台、CI/CD、NAS、Home Assistant、Shell、Python、Java 或 Go 程序，都可以使用 WxPusher。先用 SPT
+        验证通知链路，业务化或多人使用时再迁移到标准推送。</p>
+    </article>
+  </main>
+  <footer>
+    <div class="page">WxPusher 官方开发文档 · <a href="https://github.com/wxpusher">GitHub</a></div>
+  </footer>
+</body>
+
+</html>

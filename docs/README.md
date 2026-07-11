@@ -1,5 +1,7 @@
 # 介绍
 
+> 本文档由 WxPusher 官方维护，最后更新：2026-07-11。接口字段、限制和线上行为以本文档为准。
+
 ## 什么是WxPusher
 
 [**WxPusher消息推送平台**](https://wxpusher.zjiecode.com/) 是四川思明今创科技有限公司旗下的一套实时消息推送服务平台：早期以微信公众号为主要触达通道，**当前主推独立全平台客户端接收**（各安卓厂商推送、iOS APNs、鸿蒙 Push Kit、桌面端 WebSocket 长连接等），并支持 **微信 ClawBot（iLink）** 等补充渠道；你可通过 HTTP API 将消息投递到用户已绑定的端上。

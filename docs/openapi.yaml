@@ -1,0 +1,301 @@
+openapi: 3.1.0
+info:
+  title: WxPusher Core Push API
+  version: 1.0.0
+  description: |
+    WxPusher 核心消息推送接口的机器可读定义，覆盖标准推送、极简推送、状态查询、消息内容删除和参数二维码。
+    精确限制、业务规则和新增接口请以 https://wxpusher.zjiecode.com/docs/ 为准。
+  contact:
+    name: WxPusher
+    url: https://wxpusher.zjiecode.com/contact.html
+  license:
+    name: WxPusher API Terms
+    url: https://wxpusher.zjiecode.com/admin/agreement/user-service.html
+servers:
+  - url: https://wxpusher.zjiecode.com
+    description: Production
+tags:
+  - name: Standard Push
+    description: 使用 appToken 向 UID 用户或 Topic 订阅者发送消息。
+  - name: Simple Push
+    description: 使用 SPT 向自己或少量接收者发送消息。
+  - name: Message Management
+    description: 查询发送状态或删除消息落地页内容。
+  - name: QR Code
+    description: 创建参数二维码并查询扫码用户 UID。
+paths:
+  /api/send/message:
+    post:
+      operationId: sendMessage
+      summary: 标准推送发送消息
+      description: 使用 appToken 鉴权，通过 uids 单发或批量发送，也可以通过 topicIds 主题群发。
+      tags: [Standard Push]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardPushRequest'
+            examples:
+              serverAlert:
+                summary: 服务器告警
+                value:
+                  appToken: AT_xxx
+                  content: 服务器 CPU 使用率超过 90%
+                  summary: 服务器告警
+                  contentType: 1
+                  uids: [UID_xxx]
+      responses:
+        '200':
+          description: HTTP 请求成功；请继续检查响应体中的业务 code，1000 表示成功。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendResult'
+    get:
+      operationId: sendTextMessageByQuery
+      summary: 使用查询参数发送单条纯文本消息
+      description: 功能受限的便捷接口，仅支持向一个 UID 或一个 Topic 发送纯文本，推荐优先使用 POST。
+      tags: [Standard Push]
+      parameters:
+        - $ref: '#/components/parameters/AppTokenQuery'
+        - name: uid
+          in: query
+          schema: {type: string}
+        - name: topicId
+          in: query
+          schema: {type: integer, format: int64}
+        - name: content
+          in: query
+          required: true
+          schema: {type: string, maxLength: 40000}
+        - name: summary
+          in: query
+          schema: {type: string, maxLength: 100}
+        - name: url
+          in: query
+          schema: {type: string, maxLength: 1000}
+        - name: verifyPayType
+          in: query
+          schema: {type: integer, enum: [0, 1, 2], default: 0}
+      responses:
+        '200':
+          description: 业务结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/SendResult'}
+    delete:
+      operationId: deleteMessageContent
+      summary: 删除消息落地页内容
+      description: 删除后用户无法继续查看本次发送共享的落地页内容；已经到达通知栏或消息列表的记录无法撤回。
+      tags: [Message Management]
+      parameters:
+        - $ref: '#/components/parameters/AppTokenQuery'
+        - name: messageContentId
+          in: query
+          required: true
+          schema: {type: integer, format: int64}
+      responses:
+        '200':
+          description: 业务结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Result'}
+  /api/send/message/simple-push:
+    post:
+      operationId: sendSimplePush
+      summary: 极简推送发送消息
+      tags: [Simple Push]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SimplePushRequest'}
+      responses:
+        '200':
+          description: 业务结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/SendResult'}
+  /api/send/message/{simplePushToken}/{content}:
+    get:
+      operationId: sendSimplePushByPath
+      summary: 通过路径快速发送极简推送
+      description: SPT 和正文必须进行 URL 编码。需要摘要、原文链接或多接收者时使用 POST 接口。
+      tags: [Simple Push]
+      parameters:
+        - name: simplePushToken
+          in: path
+          required: true
+          schema: {type: string, pattern: '^SPT_'}
+        - name: content
+          in: path
+          required: true
+          schema: {type: string, maxLength: 40000}
+      responses:
+        '200':
+          description: 业务结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/SendResult'}
+  /api/send/query/status:
+    get:
+      operationId: querySendStatus
+      summary: 查询某个接收目标的发送状态
+      tags: [Message Management]
+      parameters:
+        - name: sendRecordId
+          in: query
+          required: true
+          schema: {type: integer, format: int64}
+      responses:
+        '200':
+          description: 状态查询结果；消息状态缓存通常保留 7 天。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Result'}
+  /api/fun/create/qrcode:
+    post:
+      operationId: createParameterizedQrCode
+      summary: 创建携带业务参数的二维码
+      tags: [QR Code]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateQrCodeRequest'}
+      responses:
+        '200':
+          description: 返回二维码 code、有效期和图片 URL。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Result'}
+  /api/fun/scan-qrcode-uid:
+    get:
+      operationId: queryQrCodeUid
+      summary: 查询最后一次扫描参数二维码的用户 UID
+      description: 轮询间隔不得少于 10 秒，用户退出后必须停止轮询。
+      tags: [QR Code]
+      parameters:
+        - name: code
+          in: query
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: 扫码查询结果
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Result'}
+components:
+  parameters:
+    AppTokenQuery:
+      name: appToken
+      in: query
+      required: true
+      description: 应用鉴权密钥，请勿公开。
+      schema: {type: string, pattern: '^AT_'}
+  schemas:
+    BaseMessage:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          minLength: 1
+          maxLength: 40000
+        summary:
+          type: string
+          maxLength: 100
+        contentType:
+          type: integer
+          enum: [1, 2, 3]
+          default: 1
+          description: 1 纯文本，2 HTML，3 Markdown。
+        url:
+          type: string
+          maxLength: 1000
+        verifyPayType:
+          type: integer
+          enum: [0, 1, 2]
+          default: 0
+          description: 0 不验证，1 仅付费用户，2 仅未订阅或已过期用户。
+    StandardPushRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - type: object
+          required: [appToken]
+          properties:
+            appToken:
+              type: string
+              pattern: '^AT_'
+            uids:
+              type: array
+              maxItems: 2000
+              uniqueItems: true
+              items: {type: string}
+            topicIds:
+              type: array
+              maxItems: 5
+              uniqueItems: true
+              items: {type: integer, format: int64}
+          anyOf:
+            - required: [uids]
+            - required: [topicIds]
+    SimplePushRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - type: object
+          properties:
+            spt:
+              type: string
+              pattern: '^SPT_'
+            sptList:
+              type: array
+              maxItems: 10
+              uniqueItems: true
+              items: {type: string, pattern: '^SPT_'}
+          anyOf:
+            - required: [spt]
+            - required: [sptList]
+    CreateQrCodeRequest:
+      type: object
+      required: [appToken, extra]
+      properties:
+        appToken: {type: string, pattern: '^AT_'}
+        extra: {type: string, minLength: 1, maxLength: 64}
+        validTime:
+          type: integer
+          minimum: 1
+          maximum: 2592000
+          default: 1800
+          description: 有效期，单位秒，最长 30 天。
+    Result:
+      type: object
+      required: [code, msg]
+      properties:
+        code:
+          type: integer
+          description: 1000 成功，1001 通用业务错误，1002 未登录。
+        msg: {type: string}
+        data: {}
+        success:
+          type: boolean
+          description: 部分响应会包含的兼容字段。
+    SendTargetResult:
+      type: object
+      properties:
+        uid: {type: [string, 'null']}
+        topicId: {type: [integer, 'null'], format: int64}
+        messageContentId: {type: integer, format: int64}
+        sendRecordId: {type: integer, format: int64}
+        code: {type: integer}
+        status: {type: string}
+    SendResult:
+      allOf:
+        - $ref: '#/components/schemas/Result'
+        - type: object
+          properties:
+            data:
+              type: array
+              items: {$ref: '#/components/schemas/SendTargetResult'}

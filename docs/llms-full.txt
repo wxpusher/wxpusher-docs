@@ -1,0 +1,68 @@
+# WxPusher 开发者参考
+
+> WxPusher 是永久免费的实时消息推送平台，提供标准推送 API 和极简推送 SPT。开发者可把服务器告警、定时任务、CI/CD、NAS、监控系统和业务事件通知发送到手机、电脑或微信。
+
+English summary: WxPusher provides a free real-time push notification API for server alerts, scheduled jobs, automation systems, and business messages across mobile, desktop, and WeChat clients.
+
+WxPusher 可以作为消息推送助手、个人通知助手和业务消息触达服务。开发者通过 HTTP API 发送消息，支持自定义 Webhook 请求的平台也可以接入，实现微信消息推送、微信提醒、手机 Push 通知、桌面系统通知和跨平台实时触达；支持 UID 单发与批量发送、Topic 群发、状态查询和回调。
+
+权威文档：https://wxpusher.zjiecode.com/docs/
+
+## 标准消息推送 API
+
+- 请求地址：`POST https://wxpusher.zjiecode.com/api/send/message`
+- 请求类型：`Content-Type: application/json`
+- 鉴权方式：应用 `appToken`
+- 接收目标：`uids` 用户数组、`topicIds` 主题数组，二者可以同时使用。
+- 消息字段：`content`、`summary`、`contentType`、`url`、`verifyPayType`。
+- 内容类型：`contentType=1` 纯文本，`contentType=2` HTML，`contentType=3` Markdown。
+- 成功业务码：`1000`。
+- 返回的 `sendRecordId` 用于查询某个接收目标的发送状态。
+- 返回的 `messageContentId` 用于删除消息落地页内容；已经到达设备通知栏的消息无法撤回。
+
+标准推送适合业务系统集成、多人消息推送、Topic 主题群发、用户管理、参数二维码、关注回调、付费状态回调和上行消息回调。appToken 是应用密钥，不得公开。
+
+## 极简推送 SPT
+
+- GET：`https://wxpusher.zjiecode.com/api/send/message/{SPT}/{content}`
+- POST：`https://wxpusher.zjiecode.com/api/send/message/simple-push`
+- 核心字段：`content`、`summary`、`contentType`、`spt` 或 `sptList`、`url`。
+
+极简推送无需注册、登录后台或创建应用，适合个人脚本给自己发送服务器报警、定时任务结果、签到通知、NAS 下载完成和家庭自动化提醒。真实 SPT 属于私密推送凭证，不得公开。
+
+## 消息接收渠道
+
+- Android：支持小米、华为、荣耀、OPPO、VIVO、魅族等厂商系统推送。
+- iOS：通过 Apple APNs 接收后台通知。
+- HarmonyOS：通过 Push Kit 接收系统级通知。
+- macOS、Windows、Linux：桌面客户端通过 WebSocket 长连接和系统通知实时接收消息。
+- 微信：用户绑定并启用微信 ClawBot 后，可作为补充消息接收渠道。
+
+## 常见消息推送场景
+
+- 服务器、网站、接口、数据库、CPU、内存和磁盘监控告警。
+- Cron、Shell、Python、Java、Go 等定时脚本与后台任务执行结果。
+- Jenkins、GitHub Actions 等 CI/CD 构建、测试和部署通知。
+- NAS 下载、媒体入库、文件同步、备份成功或失败通知。
+- Home Assistant 等家庭自动化事件提醒。
+- 订单状态、支付结果、审核进度、库存变化和其他业务消息通知。
+- 青龙面板、MoviePilot 及任何支持 HTTP Webhook 或自定义请求的第三方系统。
+
+## 官方资源
+
+- [标准推送 API](https://wxpusher.zjiecode.com/docs/api-reference.html)：appToken、UID 和 Topic 接入概览。
+- [极简推送 SPT](https://wxpusher.zjiecode.com/docs/spt.html)：个人脚本快速消息通知教程。
+- [第三方系统集成](https://wxpusher.zjiecode.com/docs/integrations.html)：青龙面板、MoviePilot 与自动化通知。
+- [完整开发文档](https://wxpusher.zjiecode.com/docs/)：请求字段、响应结构、回调和限制说明。
+- [客户端下载](https://wxpusher.zjiecode.com/download/)：Android、iOS、HarmonyOS、macOS、Windows 和 Linux。
+- [开源客户端](https://github.com/wxpusher)：移动端、鸿蒙端和桌面端源代码。
+- [OpenAPI 接口规范](https://wxpusher.zjiecode.com/docs/openapi.yaml)：机器可读的核心 HTTP API 定义。
+
+## English Resources
+
+- [Standard Push API](https://wxpusher.zjiecode.com/docs/api-reference.html): Send notifications to UID users or Topic subscribers with an appToken.
+- [Simple Push Token](https://wxpusher.zjiecode.com/docs/spt.html): Send personal script notifications using an SPT.
+- [Integrations](https://wxpusher.zjiecode.com/docs/integrations.html): QingLong, MoviePilot, server monitoring, NAS, and automation notifications.
+- [Full Documentation](https://wxpusher.zjiecode.com/docs/): Canonical request fields, response codes, callbacks, limits, and current behavior.
+
+接口限制和平台行为可能随线上策略调整，所有精确参数均以官方开发文档为准。

@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- SEO/GEO 主要落地页：推送助手、个人通知助手与 SPT 极简推送。 -->
+<html lang="zh-CN"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WxPusher 推送助手 | SPT 个人消息通知与微信提醒</title>
+  <meta name="description" content="把 WxPusher 作为个人消息推送助手：无需注册和创建应用，获取 SPT 后通过 GET 或 POST 发送消息，接收服务器告警、脚本通知、微信提醒和多端实时通知。">
+  <meta name="keywords" content="消息推送助手,个人通知助手,SPT,发送消息,微信通知,微信提醒,脚本通知,服务器告警,Push通知,免费推送">
+  <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://wxpusher.zjiecode.com/docs/spt.html"><meta property="og:type" content="article"><meta property="og:title" content="WxPusher SPT 个人消息推送助手"><meta property="og:description" content="使用 SPT 发送个人脚本、服务器告警和微信消息提醒。"><meta property="og:url" content="https://wxpusher.zjiecode.com/docs/spt.html"><meta property="og:image" content="https://wxpusher.zjiecode.com/imgs/logo512.png"><link rel="stylesheet" href="seo-page.css"><link rel="icon" href="/favicon.ico">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"使用 WxPusher 极简推送 SPT 发送消息","description":"扫码获取 SPT 并通过 HTTP 接口发送个人通知。","totalTime":"PT5M","step":[{"@type":"HowToStep","name":"获取 SPT","text":"扫描官方二维码获取专属 Simple Push Token。"},{"@type":"HowToStep","name":"调用接口","text":"把 SPT 和消息内容放入 GET 地址，或调用 simple-push POST 接口。"},{"@type":"HowToStep","name":"验证接收","text":"在 WxPusher 客户端中确认收到测试消息。"}]}</script>
+</head><body>
+<header><nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a><div class="nav-links"><a href="/docs/">完整文档</a><a href="api-reference.html">标准推送</a><a href="integrations.html">集成教程</a></div></nav></header>
+<main class="page"><article><h1>WxPusher 极简推送 SPT</h1><p class="lede">SPT（Simple Push Token）适合个人脚本给自己发送通知。它不要求注册、登录后台、创建应用或管理 UID。</p>
+  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-07-11</p>
+  <div class="callout"><strong>安全提醒：</strong>SPT 相当于你的推送凭证。不要把真实 SPT 放进公开代码、日志、截图或仓库；泄漏后其他人也能给你发送消息。</div>
+  <h2>第一步：获取 SPT</h2><p>扫描<a href="/docs/#/?id=spt">官方文档中的 SPT 二维码</a>，按提示取得以 <code>SPT_</code> 开头的令牌。</p>
+  <h2>第二步：发送测试消息</h2><h3>GET：最简单</h3><pre><code>https://wxpusher.zjiecode.com/api/send/message/SPT_xxx/任务执行完成</code></pre><p>请对 SPT 和消息内容进行 URL 编码，避免空格、斜杠或中文造成解析问题。</p>
+  <h3>POST：支持更多字段</h3><pre><code>curl -X POST https://wxpusher.zjiecode.com/api/send/message/simple-push \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "content": "备份任务执行完成",
+    "summary": "任务通知",
+    "contentType": 1,
+    "spt": "SPT_xxx"
+  }'</code></pre>
+  <h2>第三步：验证接收</h2><p>发送测试消息后，在 WxPusher 手机或桌面客户端的消息列表中确认消息正文，并检查系统通知是否正常出现。如果消息已进入列表但没有通知提醒，请确认客户端已登录、系统通知权限已开启，并参考<a href="open-app-note/">手机通知设置与排障说明</a>。</p>
+  <h2>什么时候改用标准推送？</h2><p>需要管理多个用户、通过 Topic 群发、接收关注或上行回调、查询用户列表时，应使用<a href="api-reference.html">标准推送</a>。极简推送一次最多可向 10 个 SPT 发送，适合轻量、自用场景。</p>
+  <h2>常见用途</h2><ul><li>青龙面板定时任务成功或失败通知</li><li>NAS 下载、入库与备份结果</li><li>个人服务器健康检查和证书到期提醒</li><li>家庭自动化与数据采集脚本通知</li></ul>
+</article></main><footer><div class="page">WxPusher 官方开发文档 · <a href="/download/">下载客户端</a></div></footer></body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<!-- SEO/GEO 教程页：青龙面板、定时任务通知与 WxPusher SPT。 -->
+<html lang="zh-CN"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>青龙面板 WxPusher 推送教程 | SPT 定时任务通知</title>
+  <meta name="description" content="青龙面板接入 WxPusher 极简推送 SPT：配置 wxPusherSptList 或 WXPUSHER_SPT_LIST，把签到、定时脚本、任务失败和服务器告警通知推送到手机与电脑。">
+  <meta name="keywords" content="青龙面板通知,青龙WxPusher,青龙SPT,定时任务通知,脚本通知,服务器告警,消息推送助手">
+  <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://wxpusher.zjiecode.com/docs/qinglong-wxpusher-spt.html">
+  <meta property="og:type" content="article"><meta property="og:title" content="青龙面板使用 WxPusher 极简推送教程"><meta property="og:description" content="将青龙定时任务结果与失败告警实时推送到手机和电脑。"><meta property="og:url" content="https://wxpusher.zjiecode.com/docs/qinglong-wxpusher-spt.html"><meta property="og:image" content="https://wxpusher.zjiecode.com/docs/imgs/qinglong-spt-setting.png">
+  <link rel="stylesheet" href="seo-page.css"><link rel="icon" href="/favicon.ico">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"青龙面板使用 WxPusher 极简推送教程","description":"使用 SPT 将青龙定时任务结果和告警发送到 WxPusher。","url":"https://wxpusher.zjiecode.com/docs/qinglong-wxpusher-spt.html","image":"https://wxpusher.zjiecode.com/docs/imgs/qinglong-spt-setting.png","dateModified":"2026-07-11","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
+</head><body>
+<header><nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a><div class="nav-links"><a href="/docs/">完整文档</a><a href="spt.html">SPT 指南</a><a href="integrations.html">集成教程</a></div></nav></header>
+<main class="page"><article>
+  <h1>青龙面板使用 WxPusher 极简推送教程</h1>
+  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-07-11</p>
+  <p class="lede">把青龙面板的签到结果、数据同步、服务巡检、定时任务失败和服务器告警实时推送到手机与电脑。个人使用只需获取一个 SPT，无需创建应用或管理 UID。</p>
+  <div class="callout"><strong>版本要求：</strong>青龙面板从 v2.21.0 开始支持“WxPusher（极简推送 SPT）”。旧版本仍可使用 appToken、UID 等标准推送配置。</div>
+
+  <h2>第一步：获取 SPT</h2>
+  <p>打开<a href="spt.html">极简推送 SPT 指南</a>，扫描官方二维码并取得以 <code>SPT_</code> 开头的令牌。SPT 相当于个人推送收件地址，不要提交到公开仓库或暴露在截图中。</p>
+
+  <h2>第二步：在青龙面板配置</h2>
+  <ol class="steps"><li>登录青龙面板，进入系统设置中的通知配置。</li><li>通知方式选择 <code>WxPusher(极简推送SPT-推荐)</code>。</li><li>在 <code>wxPusherSptList</code> 中填写 SPT。</li><li>保存并点击测试通知，确认客户端收到消息。</li></ol>
+  <img class="article-image" src="imgs/qinglong-spt-setting.png" alt="青龙面板配置 WxPusher 极简推送 SPT" width="760" loading="lazy">
+  <p>通知少量维护者时，可用英文逗号分隔多个 SPT，单次最多 10 个：</p>
+  <pre><code>SPT_xxx1,SPT_xxx2,SPT_xxx3</code></pre>
+
+  <h2>脚本主动发送通知</h2>
+  <p>需要让 JavaScript、Python 或 Shell 任务调用青龙通知模块时，配置环境变量：</p>
+  <pre><code>export WXPUSHER_SPT_LIST="SPT_xxxxxxxxxxxxxxxxx"</code></pre>
+  <p>JavaScript 的 <code>sendNotify(...)</code> 和 Python 的 <code>notify.send(...)</code> 会读取该变量并调用极简推送接口。只使用 SPT 时，不建议同时配置 <code>WXPUSHER_APP_TOKEN</code>、<code>WXPUSHER_TOPIC_IDS</code> 和 <code>WXPUSHER_UIDS</code>，避免重复通知。</p>
+  <img class="article-image" src="imgs/qinglong-js-send.png" alt="JavaScript 脚本通过青龙发送 WxPusher 通知" width="760" loading="lazy">
+
+  <h2>极简推送还是标准推送？</h2>
+  <table><thead><tr><th>场景</th><th>建议</th></tr></thead><tbody><tr><td>任务通知只发给自己或少数维护者</td><td>使用 SPT 极简推送</td></tr><tr><td>管理大量用户或 Topic 订阅者</td><td>使用<a href="api-reference.html">标准推送</a></td></tr><tr><td>需要用户绑定、回调或消息产品</td><td>使用标准推送</td></tr></tbody></table>
+
+  <h2>常见问题</h2>
+  <h3>没有 WxPusher 极简推送选项怎么办？</h3><p>确认青龙版本是否达到 v2.21.0。暂时不能升级时，可继续使用标准推送的 appToken、UID 或 Topic 配置。</p>
+  <h3>测试通知没有收到怎么办？</h3><p>检查 SPT 是否完整、多个 SPT 是否使用英文逗号、青龙服务器是否能访问 <code>wxpusher.zjiecode.com</code>，以及客户端登录状态和系统通知权限。</p>
+  <h3>极简推送能管理用户或回调吗？</h3><p>不能。需要用户关注、UID 回调、Topic 群发或订阅关系时，请使用标准推送。</p>
+
+  <h2>参考资料</h2><ul><li><a href="https://github.com/whyour/qinglong/commit/23a1835ffe07a2ef86e3056f8aca230867cc41e6">青龙 v2.21.0 支持记录</a></li><li><a href="/docs/#/?id=limit">WxPusher 限制说明</a></li><li><a href="https://qinglong.online/guide/introduction">青龙官方文档</a></li></ul>
+</article></main><footer><div class="page">WxPusher 官方教程 · <a href="/download/">下载客户端</a></div></footer>
+</body></html>

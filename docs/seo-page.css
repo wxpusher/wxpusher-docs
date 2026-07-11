@@ -1,0 +1,28 @@
+/* SEO/GEO 内容落地页专用样式，文件清单见 monorepo/SEO-GEO-FILES.md。 */
+:root { color-scheme: light; --brand:#b300b3; --text:#202124; --muted:#5f6368; --line:#e6e8eb; --soft:#fcf4fc; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--text); background:#fff; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; line-height:1.75; }
+a { color:#8a008a; text-underline-offset:3px; }
+header { border-bottom:1px solid var(--line); background:#fff; }
+.nav,.page { width:min(920px,calc(100% - 32px)); margin:0 auto; }
+.nav { min-height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.brand { font-weight:800; text-decoration:none; color:var(--text); }
+.nav-links { display:flex; flex-wrap:wrap; gap:18px; font-size:.94rem; }
+main { padding:42px 0 64px; }
+h1 { font-size:clamp(2rem,5vw,3rem); line-height:1.2; letter-spacing:-.03em; }
+h2 { margin-top:2.2em; line-height:1.3; }
+h3 { margin-top:1.6em; }
+.lede { font-size:1.14rem; color:var(--muted); }
+.callout { margin:24px 0; padding:18px 20px; border-left:4px solid var(--brand); background:var(--soft); border-radius:8px; }
+.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.card { padding:20px; border:1px solid var(--line); border-radius:12px; }
+pre { padding:18px; overflow:auto; color:#f8f8f2; background:#24292f; border-radius:10px; line-height:1.55; }
+code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+p code,li code,td code { overflow-wrap:anywhere; word-break:break-word; }
+table { width:100%; border-collapse:collapse; }
+th,td { padding:10px 12px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+footer { padding:24px 0; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+.article-meta { color:var(--muted); font-size:.92rem; }
+.article-image { display:block; width:min(100%,760px); height:auto; margin:20px auto; border:1px solid var(--line); border-radius:10px; }
+.steps li { margin-bottom:8px; }
+@media (max-width:680px) { .cards { grid-template-columns:1fr; } .nav { align-items:flex-start; flex-direction:column; padding:14px 0; } }

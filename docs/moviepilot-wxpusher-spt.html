@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- SEO/GEO 教程页：MoviePilot、NAS 通知与 WxPusher SPT。 -->
+<html lang="zh-CN"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MoviePilot WxPusher 推送教程 | NAS 下载与入库通知</title>
+  <meta name="description" content="MoviePilot 安装并配置 WxPusher 消息通知插件：使用 SPT 或 appToken，把 NAS 下载、入库、订阅更新和系统告警实时推送到手机与电脑。">
+  <meta name="keywords" content="MoviePilot通知,MoviePilot WxPusher,NAS通知,下载完成通知,媒体入库通知,SPT,消息推送助手">
+  <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://wxpusher.zjiecode.com/docs/moviepilot-wxpusher-spt.html">
+  <meta property="og:type" content="article"><meta property="og:title" content="MoviePilot 使用 WxPusher 推送通知教程"><meta property="og:description" content="把 MoviePilot 下载、入库、订阅与系统告警推送到手机和电脑。"><meta property="og:url" content="https://wxpusher.zjiecode.com/docs/moviepilot-wxpusher-spt.html"><meta property="og:image" content="https://wxpusher.zjiecode.com/docs/imgs/moviepilot-wxpusher-spt-setting.png">
+  <link rel="stylesheet" href="seo-page.css"><link rel="icon" href="/favicon.ico">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"MoviePilot 使用 WxPusher 推送通知教程","description":"使用 WxPusher 插件接收 MoviePilot 的 NAS 下载、入库、订阅与告警通知。","url":"https://wxpusher.zjiecode.com/docs/moviepilot-wxpusher-spt.html","image":"https://wxpusher.zjiecode.com/docs/imgs/moviepilot-wxpusher-spt-setting.png","dateModified":"2026-07-11","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
+</head><body>
+<header><nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a><div class="nav-links"><a href="/docs/">完整文档</a><a href="spt.html">SPT 指南</a><a href="integrations.html">集成教程</a></div></nav></header>
+<main class="page"><article>
+  <h1>MoviePilot 使用 WxPusher 推送通知教程</h1>
+  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-07-11</p>
+  <p class="lede">通过 MoviePilot 的“WxPusher消息通知”插件，把电影与剧集下载、媒体入库、订阅更新、站点消息和 NAS 系统告警实时推送到手机与电脑。</p>
+  <div class="callout"><strong>推荐选择：</strong>只通知自己或家人时使用 SPT；需要 Topic 群发、用户管理和回调时使用标准推送。</div>
+
+  <h2>第一步：安装 WxPusher 插件</h2>
+  <ol class="steps"><li>登录 MoviePilot，进入“插件”→“插件市场”。</li><li>搜索 WxPusher，选择官方的“WxPusher消息通知”。</li><li>安装后回到“我的插件”打开配置。</li></ol>
+  <img class="article-image" src="imgs/moviepilot-plugin-market.png" alt="MoviePilot 插件市场中的 WxPusher 消息通知插件" width="760" loading="lazy">
+
+  <h2>第二步：配置极简推送 SPT</h2>
+  <ol class="steps"><li>按照<a href="spt.html">SPT 指南</a>获取专属令牌。</li><li>启用插件，推送方式选择“极简推送（SPT）”。</li><li>填写 SPT；消息类型留空表示全部推送，也可以只选择下载、入库或系统告警。</li><li>勾选“发送测试消息”并保存。</li></ol>
+  <img class="article-image" src="imgs/moviepilot-wxpusher-spt-setting.png" alt="MoviePilot 配置 WxPusher 极简推送 SPT" width="760" loading="lazy">
+  <p>通知少量家庭成员时，可使用英文逗号分隔多个 SPT，单次最多 10 个：</p>
+  <pre><code>SPT_xxx1,SPT_xxx2,SPT_xxx3</code></pre>
+
+  <h2>第三步：验证 MoviePilot 通知</h2>
+  <p>保存测试后，确认消息进入 WxPusher 列表并出现系统通知。之后 MoviePilot 的下载完成、入库、订阅更新和异常事件会按插件过滤条件发送。</p>
+  <img class="article-image" src="imgs/moviepilot-wxpusher-message-phone.png" alt="手机收到 MoviePilot 的 WxPusher 通知" width="760" loading="lazy">
+
+  <h2>需要多人群发时使用标准推送</h2>
+  <p>在<a href="/admin/">管理后台</a>创建应用并取得 appToken，再在插件中选择标准推送。可以填写 UID，或创建 Topic 后让用户扫码订阅；新增接收者时无需修改 MoviePilot 配置。</p>
+  <img class="article-image" src="imgs/moviepilot-wxpusher-apptoken-setting.png" alt="MoviePilot 配置 WxPusher 标准推送 appToken" width="760" loading="lazy">
+
+  <h2>常见问题</h2>
+  <h3>SPT 可以配置几个人？</h3><p>单次最多 10 个 SPT，多个值使用英文逗号分隔。需要更大范围群发时使用 Topic。</p>
+  <h3>测试没有收到通知怎么办？</h3><p>检查 SPT 是否完整、NAS 是否能访问 <code>wxpusher.zjiecode.com</code>、插件消息类型是否过滤了测试消息，以及客户端通知权限是否开启。</p>
+  <h3>是否与 MoviePilot 内置通知冲突？</h3><p>不会。插件监听 MoviePilot 通知事件并行转发，不占用其他通知渠道。</p>
+  <h3>免费服务有哪些限制？</h3><p>发送频率、单次接收人数和设备每日提醒规则可能随线上策略调整，请始终查看<a href="/docs/#/?id=limit">官方限制说明</a>，不要依赖教程中固定的历史数值。</p>
+
+  <h2>参考资料</h2><ul><li><a href="https://github.com/jxxghp/MoviePilot">MoviePilot 项目主页</a></li><li><a href="api-reference.html">WxPusher 标准推送 API</a></li><li><a href="spt.html">WxPusher 极简推送 SPT</a></li></ul>
+</article></main><footer><div class="page">WxPusher 官方教程 · <a href="/download/">下载客户端</a></div></footer>
+</body></html>
