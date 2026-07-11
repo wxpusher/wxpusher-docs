@@ -673,7 +673,7 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 
 ## 在管理后台配置
 
-在管理后台 **[【应用管理 → 系统对接】](/admin/main/app/systemIntegration)** 里配置以下字段，配置完用户端就会出现进入你系统的入口：
+在管理后台 **[【应用管理 → 系统对接】](https://wxpusher.zjiecode.com/admin/main/app/systemIntegration)** 里配置以下字段，配置完用户端就会出现进入你系统的入口：
 
 | 配置项 | 说明 |
 |------|------|
