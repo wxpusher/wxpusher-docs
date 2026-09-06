@@ -16,6 +16,7 @@ WxPusher 可以作为消息推送助手、个人通知助手和业务消息触�
 - 接收目标：`uids` 用户数组、`topicIds` 主题数组，二者可以同时使用。
 - 消息字段：`content`、`summary`、`contentType`、`url`、`verifyPayType`。
 - 内容类型：`contentType=1` 纯文本，`contentType=2` HTML，`contentType=3` Markdown。
+- content 最多 40000 个字符；原文及服务端清理、转换后的 HTML 均不能超过 65535 个 UTF-8 字节，超限返回业务码 1001。
 - 成功业务码：`1000`。
 - 返回的 `sendRecordId` 用于查询某个接收目标的发送状态。
 - 返回的 `messageContentId` 用于删除消息落地页内容；已经到达设备通知栏的消息无法撤回。
@@ -27,6 +28,7 @@ WxPusher 可以作为消息推送助手、个人通知助手和业务消息触�
 - GET：`https://wxpusher.zjiecode.com/api/send/message/{SPT}/{content}`
 - POST：`https://wxpusher.zjiecode.com/api/send/message/simple-push`
 - 核心字段：`content`、`summary`、`contentType`、`spt` 或 `sptList`、`url`。
+- content 使用与标准推送相同的字符数和 UTF-8 字节限制。
 
 极简推送无需注册、登录后台或创建应用，适合个人脚本给自己发送服务器报警、定时任务结果、签到通知、NAS 下载完成和家庭自动化提醒。真实 SPT 属于私密推送凭证，不得公开。
 

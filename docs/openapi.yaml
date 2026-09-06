@@ -28,7 +28,7 @@ paths:
     post:
       operationId: sendMessage
       summary: 标准推送发送消息
-      description: 使用 appToken 鉴权，通过 uids 单发或批量发送，也可以通过 topicIds 主题群发。
+      description: 使用 appToken 鉴权，通过 uids 单发或批量发送，也可以通过 topicIds 主题群发。content 最多 40000 个字符，原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。
       tags: [Standard Push]
       requestBody:
         required: true
@@ -68,6 +68,7 @@ paths:
         - name: content
           in: query
           required: true
+          description: 最多 40000 个字符；原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。
           schema: {type: string, maxLength: 40000}
         - name: summary
           in: query
@@ -131,6 +132,7 @@ paths:
         - name: content
           in: path
           required: true
+          description: 最多 40000 个字符；原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。
           schema: {type: string, maxLength: 40000}
       responses:
         '200':
@@ -204,6 +206,7 @@ components:
           type: string
           minLength: 1
           maxLength: 40000
+          description: 原始内容最多 40000 个字符，并且不能超过 65535 个 UTF-8 字节；服务端清理、转换后的 HTML 也不能超过 65535 个 UTF-8 字节，超限返回业务码 1001。
         summary:
           type: string
           maxLength: 100

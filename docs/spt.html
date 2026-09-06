@@ -13,6 +13,7 @@
   <div class="callout"><strong>安全提醒：</strong>SPT 相当于你的推送凭证。不要把真实 SPT 放进公开代码、日志、截图或仓库；泄漏后其他人也能给你发送消息。</div>
   <h2>第一步：获取 SPT</h2><p>扫描<a href="/docs/#/?id=spt">官方文档中的 SPT 二维码</a>，按提示取得以 <code>SPT_</code> 开头的令牌。</p>
   <h2>第二步：发送测试消息</h2><h3>GET：最简单</h3><pre><code>https://wxpusher.zjiecode.com/api/send/message/SPT_xxx/任务执行完成</code></pre><p>请对 SPT 和消息内容进行 URL 编码，避免空格、斜杠或中文造成解析问题。</p>
+  <p><strong>内容长度：</strong><code>content</code> 最多 40000 个字符；原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节，超限时返回业务码 1001。</p>
   <h3>POST：支持更多字段</h3><pre><code>curl -X POST https://wxpusher.zjiecode.com/api/send/message/simple-push \
   -H 'Content-Type: application/json' \
   -d '{
