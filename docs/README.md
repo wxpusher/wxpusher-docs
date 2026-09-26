@@ -862,6 +862,16 @@ sign = hmac.new(settingSignKey.encode(), canonical.encode(), hashlib.sha256).hex
 
 # 第三方系统对接
 
+## 万能发送接口（任意系统的 Webhook）
+
+阿里云云监控、腾讯云可观测、Grafana、Uptime Kuma、GitHub 等系统，大多只需要填一个 Webhook 地址，但每个系统发出的数据格式都不一样。在管理后台 **【[消息管理 → 万能发送接口](https://wxpusher.zjiecode.com/admin/main/message/adapter)】** 生成一个地址填进去，JSON、表单、XML、纯文本都能接收，整理好后推送到手机和电脑。原本推送给钉钉机器人、Server酱、Bark 的脚本，换个地址就能用。
+
+内置规则不够用时，可以自己配置解析规则：粘贴一段对方发来的数据，点选字段就能生成模板，实时预览效果，使用非常简单。
+
+![配置解析规则](imgs/auto_adapter/auto_adapter_3.png  ':size=800')
+
+详细介绍：[WxPusher 万能消息发送接口](auto-adapter.md)。
+
 ## 青龙面板
 
 青龙面板已经支持 WxPusher，可将定时脚本的执行结果、失败告警等通知推送到手机和电脑。
