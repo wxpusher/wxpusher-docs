@@ -386,39 +386,6 @@ ContentType：application/json
 https://wxpusher.zjiecode.com/api/fun/scan-qrcode-uid?code=xxxxx
 ```
 
-### ~~查询用户列表V1（已弃用）~~
-**本接口已经被弃用，请使用下面 查询App的关注用户V2接口**
-~~你可以通过本接口，分页查询到所有关注你App的微信用户。~~
-
-~~请求方式：GET~~
-
-~~说明：获取到所有关注应用的微信用户用户信息~~
-
-~~请求地址：https://wxpusher.zjiecode.com/api/fun/wxuser~~
-
-~~请求参数：~~
- - appToken 应用密钥标志
- - page  请求数据的页码
- - pageSize 分页大小
- - uid 用户的uid，可选，如果不传就是查询所有用户，传uid就是查某个用户的信息。
-
-~~返回数据：~~
-```json
-{
-    "page":1, //当前数据页码
-    "pageSize":50, //当前页码大小 
-    "records":[
-        {
-            "createTime":1572755754416, //用户关注时间
-            "enable":true, //是否可用，也就是用户是否开启接收消息
-            "headImg":"xxxxxx",//用户头像
-            "nickName":"0XFF",//用户昵称
-            "uid":"xxxxxxx"//用户的UID
-        }
-    ],
-    "total":3//所有的用户数量
-}
-```
 ### 查询用户列表V2 :id=user-list
 你可以通过本接口，分页查询到所有关注应用和关注主题的用户。
 
