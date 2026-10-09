@@ -37,7 +37,6 @@ wxpusher-docs/
     │   ├── docsify.min.js        # Docsify 运行时
     │   └── zoom-image.min.js     # 图片缩放插件
     ├── download.html             # App 下载页
-    ├── message-status.html       # 消息状态查询页
     ├── guide.png                 # 引导图
     ├── ios-app.png               # iOS 截图
     ├── imgs/                     # 文档图片资源
