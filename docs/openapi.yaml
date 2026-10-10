@@ -218,6 +218,7 @@ components:
         url:
           type: string
           maxLength: 1000
+          description: 可选原文链接，支持自定义 URL Scheme，手机三端可打开第三方 App，也可设置点击通知直接打开，详见 https://wxpusher.zjiecode.com/docs/#/url-scheme 。
         verifyPayType:
           type: integer
           enum: [0, 1, 2]

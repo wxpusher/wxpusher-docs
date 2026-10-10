@@ -1,6 +1,6 @@
 # 介绍
 
-> 本文档由 WxPusher 官方维护，最后更新：2026-07-11。接口字段、限制和线上行为以本文档为准。
+> 本文档由 WxPusher 官方维护，最后更新：2026-10-10。接口字段、限制和线上行为以本文档为准。
 
 ## 什么是WxPusher
 
@@ -8,6 +8,8 @@
 你可以使用 [**WxPusher**](https://wxpusher.zjiecode.com/) 来做服务器报警通知、抢课通知、抢票通知，信息更新提示等。
 
 **WxPusher 提供覆盖 Android（各厂商）、iOS、鸿蒙、macOS、Windows、Linux 的全平台客户端，手机和电脑都能实时收消息，且<font color="red">客户端全部开源、可自由审计</font>。** 为提升到达率与稳定性，建议用户安装 WxPusher 客户端并按需开启各推送渠道。<a href="#/?id=app-download">查看下载APP</a>
+
+消息的 `url` 支持自定义 URL Scheme，Android、iOS、鸿蒙 App 可打开第三方 App，也可设置点击通知后直接打开，详见[使用说明](url-scheme.md)。
 
 ## demo演示程序
  
@@ -269,7 +271,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "uids":[
         "UID_xxxx"
     ],
-    //原文链接，可选参数
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
     "url":"https://wxpusher.zjiecode.com", 
     //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
     //verifyPay字段即将被废弃，请使用verifyPayType字段，传verifyPayType会忽略verifyPay
@@ -278,6 +280,8 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "verifyPayType":0 
 }
   ```
+  自定义 Scheme 的用法见[使用说明](url-scheme.md)。
+
   html格式的消息（contentType=2），支持通过标签复制，复制的语法如下：
   ```html
   <copy style="这里可以写复制按钮的style" data-clipboard-text="需要复制到剪贴板的内容">
@@ -543,11 +547,13 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
     "spt":"SPT_xx1",
     //发送SPT，如果发送给多个用户，只传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
     "sptList":["SPT_xx1","SPT_xx2"],
-    //原文链接，可选参数
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
     "url":"https://wxpusher.zjiecode.com",
 }
 
 ```
+
+自定义 Scheme 的用法见[使用说明](url-scheme.md)。
 
 # 回调说明 :id=callback
 

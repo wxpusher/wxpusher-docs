@@ -9,13 +9,13 @@
   <meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://wxpusher.zjiecode.com/docs/api-reference.html">
   <meta property="og:type" content="article"><meta property="og:title" content="WxPusher 发送消息 API"><meta property="og:description" content="使用 appToken、UID 和 Topic 发送消息，实现单发、群发、回调和多端实时触达。"><meta property="og:url" content="https://wxpusher.zjiecode.com/docs/api-reference.html"><meta property="og:image" content="https://wxpusher.zjiecode.com/imgs/logo512.png">
   <link rel="stylesheet" href="seo-page.css"><link rel="icon" href="/favicon.ico">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WxPusher 标准消息推送 API","description":"使用 appToken、UID 和 Topic 接入 WxPusher 实时消息推送。","url":"https://wxpusher.zjiecode.com/docs/api-reference.html","image":"https://wxpusher.zjiecode.com/docs/imgs/structure.png","dateModified":"2026-07-11","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WxPusher 标准消息推送 API","description":"使用 appToken、UID 和 Topic 接入 WxPusher 实时消息推送。","url":"https://wxpusher.zjiecode.com/docs/api-reference.html","image":"https://wxpusher.zjiecode.com/docs/imgs/structure.png","dateModified":"2026-10-10","inLanguage":"zh-CN","isAccessibleForFree":true,"author":{"@type":"Organization","name":"WxPusher"},"publisher":{"@type":"Organization","name":"WxPusher","url":"https://wxpusher.zjiecode.com/"}}</script>
 </head>
 <body>
 <header><nav class="nav" aria-label="主导航"><a class="brand" href="/">WxPusher</a><div class="nav-links"><a href="/docs/">完整文档</a><a href="spt.html">极简推送</a><a href="/admin/">管理后台</a></div></nav></header>
 <main class="page"><article>
   <h1>WxPusher 标准消息推送 API</h1>
-  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-09-06 · <a href="openapi.yaml">下载 OpenAPI 规范</a></p>
+  <p class="article-meta">由 WxPusher 维护 · 最后更新：2026-10-10 · <a href="openapi.yaml">下载 OpenAPI 规范</a></p>
   <p class="lede">标准推送适合把 WxPusher 集成进业务系统：应用用 <strong>appToken</strong> 鉴权，通过 <strong>UID</strong> 给用户单发，或通过 <strong>Topic</strong> 向订阅者群发。</p>
   <div class="callout"><strong>最快接入路径：</strong>登录管理后台创建应用 → 获取 appToken → 让用户关注并取得 UID → 调用发送接口。appToken 属于密钥，不要提交到公开仓库。</div>
   <h2>发送消息</h2>
@@ -31,7 +31,7 @@
   }'</code></pre>
   <h2>核心字段</h2>
   <table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody>
-    <tr><td><code>appToken</code></td><td>应用鉴权密钥，必填。</td></tr><tr><td><code>content</code></td><td>消息正文，必填；最多 40000 个字符，原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。</td></tr><tr><td><code>contentType</code></td><td>1 文本、2 HTML、3 Markdown。</td></tr><tr><td><code>uids</code></td><td>接收用户 UID 数组，用于单发或批量发送。</td></tr><tr><td><code>topicIds</code></td><td>主题 ID 数组，用于向主题订阅者群发；可与 uids 同时使用。</td></tr><tr><td><code>summary</code></td><td>通知摘要，可选，最长 100 字符。</td></tr><tr><td><code>url</code></td><td>消息原文链接，可选。</td></tr>
+    <tr><td><code>appToken</code></td><td>应用鉴权密钥，必填。</td></tr><tr><td><code>content</code></td><td>消息正文，必填；最多 40000 个字符，原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。</td></tr><tr><td><code>contentType</code></td><td>1 文本、2 HTML、3 Markdown。</td></tr><tr><td><code>uids</code></td><td>接收用户 UID 数组，用于单发或批量发送。</td></tr><tr><td><code>topicIds</code></td><td>主题 ID 数组，用于向主题订阅者群发；可与 uids 同时使用。</td></tr><tr><td><code>summary</code></td><td>通知摘要，可选，最长 100 字符。</td></tr><tr><td><code>url</code></td><td>消息原文链接，可选，最长 1000 字符。手机三端支持自定义 URL Scheme；<a href="/docs/#/url-scheme">查看使用说明</a>。</td></tr>
   </tbody></table>
   <h2>返回结果与后续操作</h2>
   <p>业务响应码 <code>1000</code> 表示成功。返回的 <code>sendRecordId</code> 可用于查询单个接收目标的发送状态；<code>messageContentId</code> 可用于删除消息落地页内容。消息为异步分发，接口成功表示发送任务已创建。</p>
