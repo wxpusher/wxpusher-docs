@@ -3,7 +3,7 @@ info:
   title: WxPusher Core Push API
   version: 1.0.0
   description: |
-    WxPusher 核心消息推送接口的机器可读定义，覆盖标准推送、极简推送、状态查询、消息内容删除和参数二维码。
+    WxPusher 核心消息推送接口的机器可读定义，覆盖标准推送、极简推送、旧状态查询停用提示、消息内容删除和参数二维码。
     精确限制、业务规则和新增接口请以 https://wxpusher.zjiecode.com/docs/ 为准。
   contact:
     name: WxPusher
@@ -20,7 +20,7 @@ tags:
   - name: Simple Push
     description: 使用 SPT 向自己或少量接收者发送消息。
   - name: Message Management
-    description: 查询发送状态或删除消息落地页内容。
+    description: 删除消息落地页内容；旧发送状态查询地址仅返回停用提示。
   - name: QR Code
     description: 创建参数二维码并查询扫码用户 UID。
 paths:
@@ -143,16 +143,40 @@ paths:
   /api/send/query/status:
     get:
       operationId: querySendStatus
-      summary: 查询某个接收目标的发送状态
+      summary: 已停用的发送状态查询
+      deprecated: true
+      description: 请停止调用或轮询。忽略 sendRecordId 参数，缺失、空值或非法值均返回业务码 1001 和停用提示；该提示不表示消息发送失败。
       tags: [Message Management]
       parameters:
         - name: sendRecordId
           in: query
-          required: true
-          schema: {type: integer, format: int64}
+          required: false
+          deprecated: true
+          description: 已停用，参数值会被忽略。
+          schema: {type: string}
       responses:
         '200':
-          description: 状态查询结果；消息状态缓存通常保留 7 天。
+          description: 固定返回业务码 1001 和发送状态查询停用提示。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Result'}
+  /api/send/query/{messageId}:
+    get:
+      operationId: queryLegacySendStatus
+      summary: 已停用的旧版发送状态查询
+      deprecated: true
+      description: 请停止调用或轮询。包括 null、undefined 等路径值，均返回停用提示；该提示不表示消息发送失败。
+      tags: [Message Management]
+      parameters:
+        - name: messageId
+          in: path
+          required: true
+          deprecated: true
+          description: 已停用，参数值会被忽略。
+          schema: {type: string}
+      responses:
+        '200':
+          description: 固定返回业务码 1001 和发送状态查询停用提示。
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Result'}
@@ -287,12 +311,12 @@ components:
           type: boolean
           description: 部分响应会包含的兼容字段。
     SendTargetResult:
+      description: 每个目标的任务创建结果，不包含已停用的 messageId / sendRecordId；code 为 1000 仅表示任务已受理，不代表消息已送达。
       type: object
       properties:
         uid: {type: [string, 'null']}
         topicId: {type: [integer, 'null'], format: int64}
         messageContentId: {type: integer, format: int64}
-        sendRecordId: {type: integer, format: int64}
         code: {type: integer}
         status: {type: string}
     SendResult:
