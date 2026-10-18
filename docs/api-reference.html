@@ -34,7 +34,7 @@
     <tr><td><code>appToken</code></td><td>应用鉴权密钥，必填。</td></tr><tr><td><code>content</code></td><td>消息正文，必填；最多 40000 个字符，原文及服务端转换后的 HTML 均不能超过 65535 个 UTF-8 字节。</td></tr><tr><td><code>contentType</code></td><td>1 文本、2 HTML、3 Markdown。</td></tr><tr><td><code>uids</code></td><td>接收用户 UID 数组，用于单发或批量发送。</td></tr><tr><td><code>topicIds</code></td><td>主题 ID 数组，用于向主题订阅者群发；可与 uids 同时使用。</td></tr><tr><td><code>summary</code></td><td>通知摘要，可选，最长 100 字符。</td></tr><tr><td><code>url</code></td><td>消息原文链接，可选，最长 1000 字符。手机三端支持自定义 URL Scheme；<a href="/docs/#/url-scheme">查看使用说明</a>。</td></tr>
   </tbody></table>
   <h2>返回结果与后续操作</h2>
-  <p>业务响应码 <code>1000</code> 表示成功。返回的 <code>messageContentId</code> 可用于删除消息落地页内容。消息为异步分发，接口成功仅表示发送任务已受理，不代表消息已送达。发送响应已删除 <code>messageId</code> / <code>sendRecordId</code>；旧发送状态查询接口已停用，请停止调用或轮询，停用提示不表示消息发送失败。</p>
+  <p>业务响应码 <code>1000</code> 表示成功。返回的 <code>messageContentId</code> 可用于删除消息落地页内容。消息为异步分发，接口成功仅表示发送任务已受理，不代表消息已送达。旧发送状态查询接口已停用，请停止调用或轮询，停用提示不表示消息发送失败。</p>
   <h2>标准推送适用场景</h2>
   <div class="cards"><section class="card"><h3>服务器与运维告警</h3><p>监控系统通过 UID 通知值班人员，或通过 Topic 通知团队。</p></section><section class="card"><h3>业务事件通知</h3><p>发送订单状态、任务结果、审核进度和信息更新提醒。</p></section></div>
   <h2>限制与权威文档</h2>

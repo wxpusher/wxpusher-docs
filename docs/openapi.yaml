@@ -311,7 +311,7 @@ components:
           type: boolean
           description: 部分响应会包含的兼容字段。
     SendTargetResult:
-      description: 每个目标的任务创建结果，不包含已停用的 messageId / sendRecordId；code 为 1000 仅表示任务已受理，不代表消息已送达。
+      description: 每个目标的任务创建结果；code 为 1000 仅表示任务已受理，不代表消息已送达。
       type: object
       properties:
         uid: {type: [string, 'null']}
