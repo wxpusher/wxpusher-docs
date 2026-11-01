@@ -1,6 +1,6 @@
 # 介绍
 
-> 本文档由 WxPusher 官方维护，最后更新：2026-10-10。接口字段、限制和线上行为以本文档为准。
+> 本文档由 WxPusher 官方维护，最后更新：2026-11-01。接口字段、限制和线上行为以本文档为准。
 
 ## 什么是WxPusher
 
@@ -745,6 +745,12 @@ import hmac, hashlib
 canonical = f"nonce={nonce}&sv={sv}&ts={ts}&uid={uid}"
 sign = hmac.new(settingSignKey.encode(), canonical.encode(), hashlib.sha256).hexdigest()
 ```
+
+# 消息过滤 :id=filter-keywords
+
+订阅用户可以按关键字过滤收到的消息：选「仅接收」或「拒绝接收」包含关键字的消息，匹配消息摘要和正文，不区分大小写。开发者可以在管理后台 **[【应用管理 → 应用信息】](https://wxpusher.zjiecode.com/admin/main/app/appInfo)** 给应用和主题预置一组关键字，用户设置过滤时直接勾选，不用自己手写。
+
+详细介绍：[消息过滤与开发者预置关键字](message-filter-keywords.md)。
 
 # 消息产品收费
 
