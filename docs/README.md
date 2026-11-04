@@ -752,6 +752,12 @@ sign = hmac.new(settingSignKey.encode(), canonical.encode(), hashlib.sha256).hex
 
 详细介绍：[消息过滤与开发者预置关键字](message-filter-keywords.md)。
 
+# 托管 CSS/JS :id=hosted-css-js
+
+HTML、Markdown 消息想用自己的样式或交互脚本时，可以在管理后台 **[【消息管理 → 代码托管】](https://wxpusher.zjiecode.com/admin/main/message/hosted)** 提交 CSS / JS。代码先过 AI 审核，通过后复制引用代码贴进消息正文就能用；链接固定，修改代码重新审核通过后自动覆盖。正文里直接写的 `<script>` 仍会在发送时被删除。
+
+详细介绍：[托管 CSS / JS 的使用、审核规则与限制](hosted-css-js.md)。
+
 # 消息产品收费
 
 > 请注意：只有方式一（标准推送）才支持消息产品收费
