@@ -192,7 +192,7 @@ paths:
             schema: {$ref: '#/components/schemas/CreateQrCodeRequest'}
       responses:
         '200':
-          description: 返回二维码 code、有效期和图片 URL。
+          description: 返回二维码 code、有效期、图片 URL，以及带这个 extra 的统一订阅链接 link（有效期和二维码相同）。
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Result'}
