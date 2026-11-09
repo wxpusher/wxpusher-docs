@@ -253,7 +253,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
   1. `extra = {用户标识}.{签名}`，签名 = 用你服务端的私有密钥对 `{用户标识}` 做 HMAC-SHA256，取前 16 位 base64url，例如 `10086.Xk3pQ9vLmT2aBc8Z`（用户标识最长 47 个字符，总长不超过 64）；
   2. 收到回调后用同一个密钥重新计算签名并比较，一致才绑定；
   3. 方式 B 的 extra 用户改不了，可以不签名；为了两种方式统一处理，也可以同样签名。
-- 用户没装 App 时，WxPusher 会在用户下载安装后尽量还原订阅，只有高置信还原才带回 extra，这时回调里 `extraFrom` 为 `restore`。准确率很高但不是 100%，安全要求高的业务，可以在给这个 UID 发敏感消息前，让用户在你的系统里再确认一次绑定。
+- 用户没装 App 时，WxPusher 会在用户下载安装后尽量还原订阅，只有高置信还原才带回 extra，这时回调里 `extraFrom` 为 `install_restore`。准确率很高但不是 100%，安全要求高的业务，可以在给这个 UID 发敏感消息前，让用户在你的系统里再确认一次绑定。
 
 ### 获取UID
 目前有3种方式获取UID：
@@ -619,7 +619,7 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
         "time":1569416451573, //消息发生时间
         "uid":"UID_xxxxxx", //用户uid
         "extra":"xxx",    //用户扫描带参数的二维码，二维码携带的参数。扫描默认二维码为空
-        "extraFrom":"api" //extra 的来源：api 接口创建（用户改不了）、link 链接上直接拼（可能被修改）、restore 下载 App 后高置信还原；没有 extra 时为空
+        "extraFrom":"api" //extra 的来源：api 接口创建（用户改不了）、link 链接上直接拼（可能被修改）、install_restore 下载 App 后高置信还原；没有 extra 时为空
     }
 }
 ```
