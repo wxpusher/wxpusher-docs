@@ -703,7 +703,7 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 
 | 入口位置 | 说明 | 示意图 |
 |------|------|------|
-| 关注 / 订阅引导页 | 分享或引导用户关注的订阅页面。支持添加 `jump=auto` 参数：当满足「用户已登录 + 已订阅该应用 + 配置了系统入口」时，页面会自动携带uid等参数跳转到你的系统，用户无需再点一次，比如：https://wxpusher.zjiecode.com/app/#/follow?type=1&id=141&jump=auto  | ![关注订阅页](../imgs/share-to-follow-app.jpg ':size=170') |
+| 关注 / 订阅引导页 | 打开<a href="#/?id=统一订阅链接">统一订阅链接</a>看到的订阅页面。支持添加 `jump=auto` 参数：当满足「用户已登录 + 已订阅该应用 + 配置了系统入口」时，页面会自动携带uid等参数跳转到你的系统，用户无需再点一次，比如：https://wxpusher.zjiecode.com/api/s/K7M3QX?jump=auto 。以前的 `/app/#/follow?type=1&id=141` 链接仍然可以打开，会自动转到新的订阅页面  | ![关注订阅页](../imgs/share-to-follow-app.jpg ':size=170') |
 | App 订阅详情页 | WxPusher App「我的订阅 → 订阅详情」页 | ![订阅详情页](../imgs/app-subscribe-detail.jpg ':size=170') |
 | App 扩展功能 Tab | WxPusher App 底部「扩展功能」Tab | ![扩展功能](../imgs/app-ext-func.jpg ':size=170') |
 
