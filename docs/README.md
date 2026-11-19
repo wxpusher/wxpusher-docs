@@ -170,7 +170,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 项目|应用|主题(Topic)
 :--:|:--:|:---:
 概念|应用是一个独立的个体|主题属于应用，调用主题需要使用对应应用的APP_TOKEN授权
-关注方式|二维码和链接|二维码和链接
+关注方式|订阅链接、二维码、订阅暗号，见<a href="#/?id=subscribe-methods">让用户订阅应用/主题</a>|订阅链接、二维码、订阅暗号
 发送群体|通过UID一对一发送|消息发送主题后，主题再分发给关注主题的用户，属于群发
 
 - 各种二维码
@@ -223,10 +223,21 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
 
 ![获取appToken](imgs/appToken.png  ':size=350')
 
-### 扫码关注应用
-创建应用以后，你可以看到应用的应用码和关注链接，你可以让你的用户通过下面2种方式来关注你的应用，关注你的应用以后，你就可以给他发送消息了。
+### 让用户订阅应用/主题 :id=subscribe-methods
+用户订阅（关注）你的应用/主题以后，你才能给他发送消息：按 UID 一对一发送，用户需要订阅你的应用；按主题群发，用户需要订阅这个主题。应用和主题都有 3 种订阅方式，按要发布的地方选：
 
-![创建应用](imgs/subscribe.png  ':size=350')
+订阅方式|适合发布在|用户要做什么
+:--|:--|:--
+订阅链接|公众号菜单、微信聊天、手机网页、App 里的按钮|点一下链接，微信、手机浏览器、App、电脑都能走通
+二维码|公众号文章、电脑网页、桌面客户端、PPT、海报|微信二维码用微信扫码；通用二维码手机相机也能扫，适合印刷
+订阅暗号|论坛、聊天群、小红书、口头传播|在 WxPusher App 里输入暗号，例如「订单发货提醒」
+
+- 在管理后台获取：应用在「应用管理 → 关注订阅」，主题在「主题管理」列表里点主题的「关注订阅」。
+- 用户订阅应用后，你会收到<a href="#/?id=subscribe-callback">用户关注回调</a>，拿到 UID；订阅主题没有回调，也不能带 extra。
+- 用户不需要先装 App，订阅后会被引导下载；以前发出去的订阅链接和二维码继续可用。
+- 订阅链接可以拼 `?extra=xxx`，用户订阅后通过<a href="#/?id=subscribe-callback">用户关注回调</a>带回，用于账号绑定、渠道统计等。**链接上的 extra 用户能改，用于账号绑定等场景时请加签验证**，或者改用<a href="#/?id=create-qrcode">创建参数二维码</a>返回的 `link`。
+
+每种方式的适用场景和用户流程、extra 的用法与加签验证代码、回调来源和老链接兼容，详见：[WxPusher 订阅方式说明](subscribe-methods.md)。
 
 ### 获取UID
 目前有3种方式获取UID：
@@ -378,6 +389,8 @@ ContentType：application/json
 }
  
 ```
+
+返回值 `data` 中的 `link` 是带这个 extra 的<a href="#/?id=subscribe-methods">订阅链接</a>（extra 存在服务端，用户改不了），有效期和二维码相同，可以直接发给用户，或者自己生成二维码。
 
 ### 查询扫码用户UID :id=query-uid
 用户扫描参数二维码后，设置了回调地址，我们会通过回调地址把用户的UID推送给你的服务，具体见<a href="#/?id=callback">回调说明</a>，推荐使用这种回调的方式。
@@ -584,12 +597,13 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
         "appId":123,//创建的应用ID
         "appKey":"AK_xxxxxx", //关注应用的appKey，请不要再使用，将来可能会被删除
         "appName":"应用名字",
-        "source":"scan", //用户关注渠道，scan表示扫码关注，link表示链接关注，command表示通过消息关注应用，后期可能还会添加其他渠道。
+        "source":"scan", //用户关注渠道，scan表示扫码关注，link表示链接关注，command表示通过消息关注应用，code表示输入订阅暗号，install_restore表示下载 App 后还原订阅，后期可能还会添加其他渠道。
         "userName":"", //新用户微信不再返回 ，强制返回空
         "userHeadImg":"",//新用户微信不再返回 ，强制返回空
         "time":1569416451573, //消息发生时间
         "uid":"UID_xxxxxx", //用户uid
-        "extra":"xxx"    //用户扫描带参数的二维码，二维码携带的参数。扫描默认二维码为空
+        "extra":"xxx",    //用户扫描带参数的二维码，二维码携带的参数。扫描默认二维码为空
+        "extraFrom":"api" //extra 的来源：api 接口创建（用户改不了）、link 链接上直接拼（可能被修改）、install_restore 下载 App 后高置信还原；没有 extra 时为空
     }
 }
 ```
@@ -673,7 +687,7 @@ appID可以在管理后台，[应用管理-应用信息](https://wxpusher.zjieco
 
 | 入口位置 | 说明 | 示意图 |
 |------|------|------|
-| 关注 / 订阅引导页 | 分享或引导用户关注的订阅页面。支持添加 `jump=auto` 参数：当满足「用户已登录 + 已订阅该应用 + 配置了系统入口」时，页面会自动携带uid等参数跳转到你的系统，用户无需再点一次，比如：https://wxpusher.zjiecode.com/app/#/follow?type=1&id=141&jump=auto  | ![关注订阅页](../imgs/share-to-follow-app.jpg ':size=170') |
+| 关注 / 订阅引导页 | 打开<a href="#/?id=subscribe-methods">订阅链接</a>看到的订阅页面。支持添加 `jump=auto` 参数：当满足「用户已登录 + 已订阅该应用 + 配置了系统入口」时，页面会自动携带uid等参数跳转到你的系统，用户无需再点一次，比如：https://wxpusher.zjiecode.com/api/s/K7M3QX?jump=auto 。以前的 `/app/#/follow?type=1&id=141` 链接仍然可以打开，会自动转到新的订阅页面  | ![关注订阅页](../imgs/share-to-follow-app.jpg ':size=170') |
 | App 订阅详情页 | WxPusher App「我的订阅 → 订阅详情」页 | ![订阅详情页](../imgs/app-subscribe-detail.jpg ':size=170') |
 | App 扩展功能 Tab | WxPusher App 底部「扩展功能」Tab | ![扩展功能](../imgs/app-ext-func.jpg ':size=170') |
 

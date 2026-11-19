@@ -1,4 +1,4 @@
-/* SEO/GEO 内容落地页专用样式，文件清单见 monorepo/SEO-GEO-FILES.md。 */
+/* SEO/GEO 内容落地页专用样式，文件清单见 monorepo/docs/SEO-GEO-FILES.md。 */
 :root { color-scheme: light; --brand:#b300b3; --text:#202124; --muted:#5f6368; --line:#e6e8eb; --soft:#fcf4fc; }
 * { box-sizing:border-box; }
 body { margin:0; color:var(--text); background:#fff; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; line-height:1.75; }
