@@ -23,6 +23,20 @@ WxPusher 可以作为消息推送助手、个人通知助手和业务消息触�
 
 标准推送适合业务系统集成、多人消息推送、Topic 主题群发、用户管理、参数二维码、关注回调、付费状态回调和上行消息回调。appToken 是应用密钥，不得公开。
 
+## 用户订阅方式
+
+标准推送的用户需要先订阅应用或主题，开发者才能给他发消息。管理后台「应用管理 → 关注订阅」提供三种订阅方式，都指向同一个应用或主题：
+
+- 订阅链接：`https://wxpusher.zjiecode.com/api/s/{默认订阅暗号}`，微信、手机浏览器、WxPusher App、电脑都能打开，适合公众号菜单、微信聊天、手机网页和 App 按钮；应用的链接可拼 `?extra=xxx`（最长 64 字符，回调带回，用于账号绑定、业务对象订阅、渠道统计、邀请奖励）和 `jump=auto`。链接上的 extra 用户能改，用于账号绑定等场景时请加签：`extra = 用户标识.过期时间.签名`，签名为服务端密钥对「用户标识.过期时间」做 HMAC-SHA256 后 base64url 取前 16 位，回调里重算比对且未过期才绑定；或改用创建参数二维码接口返回的 `link`（extra 存在服务端，不可改）。
+- 二维码：微信二维码（公众号带参码，微信扫码关注即订阅，下载的图片最长 30 天过期，引用图片地址时自动换新）；通用二维码（内容是订阅链接，任意扫码工具可扫，长期有效，适合印刷）。
+- 应用和主题的订阅方式与用户流程相同，只是管理后台入口不同（应用：应用管理 → 关注订阅；主题：主题管理列表 → 关注订阅）；主题订阅没有回调，也不支持 extra。
+- 订阅暗号：默认订阅暗号（6 位，如 K7M3QX）和自定义暗号（2–16 个中文、字母或数字），用户在 App「输入订阅暗号」或搜索框输入即可订阅，回调不带 extra。
+- 公众号已不能推送消息，用户订阅后需要用 WxPusher App 或桌面客户端接收；没装 App 的用户安装登录后，App 会弹窗询问是否继续订阅（高置信时回调带 extra，`extraFrom=install_restore`）。
+- 关注回调 `source` 取值：`scan`、`link`、`code`、`install_restore`、`command`；`extraFrom` 取值：`api`、`link`、`install_restore`。
+- 老订阅链接（`/app/?type=&id=#/follow`）在 App 外自动跳转到新链接，已分发的微信二维码和参数二维码继续可用，创建参数二维码接口新增返回 `link`。
+
+详细说明：https://wxpusher.zjiecode.com/docs/subscribe-methods.html
+
 ## 极简推送 SPT
 
 - GET：`https://wxpusher.zjiecode.com/api/send/message/{SPT}/{content}`
@@ -54,6 +68,7 @@ WxPusher 可以作为消息推送助手、个人通知助手和业务消息触�
 
 - [标准推送 API](https://wxpusher.zjiecode.com/docs/api-reference.html)：appToken、UID 和 Topic 接入概览。
 - [极简推送 SPT](https://wxpusher.zjiecode.com/docs/spt.html)：个人脚本快速消息通知教程。
+- [用户订阅方式](https://wxpusher.zjiecode.com/docs/subscribe-methods.html)：订阅链接、微信二维码与通用二维码、订阅暗号的适用场景和用户流程。
 - [第三方系统集成](https://wxpusher.zjiecode.com/docs/integrations.html)：青龙面板、MoviePilot 与自动化通知。
 - [完整开发文档](https://wxpusher.zjiecode.com/docs/)：请求字段、响应结构、回调和限制说明。
 - [客户端下载](https://wxpusher.zjiecode.com/download/)：Android、iOS、HarmonyOS、macOS、Windows 和 Linux。
@@ -64,6 +79,7 @@ WxPusher 可以作为消息推送助手、个人通知助手和业务消息触�
 
 - [Standard Push API](https://wxpusher.zjiecode.com/docs/api-reference.html): Send notifications to UID users or Topic subscribers with an appToken.
 - [Simple Push Token](https://wxpusher.zjiecode.com/docs/spt.html): Send personal script notifications using an SPT.
+- [Subscription Methods](https://wxpusher.zjiecode.com/docs/subscribe-methods.html): Let users subscribe via a universal link, WeChat or universal QR code, or a subscription code word.
 - [Integrations](https://wxpusher.zjiecode.com/docs/integrations.html): QingLong, MoviePilot, server monitoring, NAS, and automation notifications.
 - [Full Documentation](https://wxpusher.zjiecode.com/docs/): Canonical request fields, response codes, callbacks, limits, and current behavior.
 
