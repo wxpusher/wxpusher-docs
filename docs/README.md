@@ -282,7 +282,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "uids":[
         "UID_xxxx"
     ],
-    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置；javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送
     "url":"https://wxpusher.zjiecode.com", 
     //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
     //verifyPay字段即将被废弃，请使用verifyPayType字段，传verifyPayType会忽略verifyPay
@@ -568,7 +568,7 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
     "spt":"SPT_xx1",
     //发送SPT，如果发送给多个用户，只传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
     "sptList":["SPT_xx1","SPT_xx2"],
-    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置；javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送
     "url":"https://wxpusher.zjiecode.com",
 }
 
