@@ -75,6 +75,7 @@ paths:
           schema: {type: string, maxLength: 100}
         - name: url
           in: query
+          description: '可选原文链接，javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送。'
           schema: {type: string, maxLength: 1000}
         - name: verifyPayType
           in: query
@@ -242,7 +243,7 @@ components:
         url:
           type: string
           maxLength: 1000
-          description: 可选原文链接，支持自定义 URL Scheme，手机三端可打开第三方 App，也可设置点击通知直接打开，详见 https://wxpusher.zjiecode.com/docs/#/url-scheme 。
+          description: '可选原文链接，支持自定义 URL Scheme，手机三端可打开第三方 App，也可设置点击通知直接打开，javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送；详见 https://wxpusher.zjiecode.com/docs/#/url-scheme 。'
         verifyPayType:
           type: integer
           enum: [0, 1, 2]

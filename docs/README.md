@@ -282,7 +282,7 @@ Topic只能无差别群发，不能针对用户定制消息，用户关注以后
     "uids":[
         "UID_xxxx"
     ],
-    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置；javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送
     "url":"https://wxpusher.zjiecode.com", 
     //是否验证订阅时间，true表示只推送给付费订阅用户，false表示推送的时候，不验证付费，不验证用户订阅到期时间，用户订阅过期了，也能收到。
     //verifyPay字段即将被废弃，请使用verifyPayType字段，传verifyPayType会忽略verifyPay
@@ -568,7 +568,7 @@ https://wxpusher.zjiecode.com/api/qrcode/RwjGLMOPTYp35zSYQr0HxbCPrV9eU0wKVBXU1D5
     "spt":"SPT_xx1",
     //发送SPT，如果发送给多个用户，只传simplePushTokenList即可，请注意，【这是一个数组】！！，最多不能超过10个
     "sptList":["SPT_xx1","SPT_xx2"],
-    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置
+    //原文链接，可选，最长1000字符；支持自定义URL Scheme打开第三方App，点击通知直接打开需用户在App内设置；javascript:、vbscript:、data: 开头的链接会被忽略，消息照常发送
     "url":"https://wxpusher.zjiecode.com",
 }
 
@@ -765,6 +765,12 @@ sign = hmac.new(settingSignKey.encode(), canonical.encode(), hashlib.sha256).hex
 订阅用户可以按关键字过滤收到的消息：选「仅接收」或「拒绝接收」包含关键字的消息，匹配消息摘要和正文，不区分大小写。开发者可以在管理后台 **[【应用管理 → 应用信息】](https://wxpusher.zjiecode.com/admin/main/app/appInfo)** 给应用和主题预置一组关键字，用户设置过滤时直接勾选，不用自己手写。
 
 详细介绍：[消息过滤与开发者预置关键字](message-filter-keywords.md)。
+
+# 托管 CSS/JS :id=hosted-css-js
+
+HTML、Markdown 消息想用自己的样式或交互脚本时，可以在管理后台 **[【消息管理 → 代码托管】](https://wxpusher.zjiecode.com/admin/main/message/hosted)** 提交 CSS / JS。代码先过 AI 审核，通过后复制引用代码贴进消息正文就能用；链接固定，修改代码重新审核通过后自动覆盖。正文里直接写的 `<script>` 仍会在发送时被删除。
+
+详细介绍：[托管 CSS / JS 的使用、审核规则与限制](hosted-css-js.md)。
 
 # 消息产品收费
 
